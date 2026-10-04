@@ -328,7 +328,7 @@
           <p>Email us with questions, problems, or a translation you would like us to add.</p>
           <span class="secondary">The Bible app's source is public at <a href="https://github.com/donfluids/Bible">github.com/donfluids/Bible</a>.</span>
         </div>
-        <a class="btn" id="contact-link" href="#contact">Email Rivers Research</a>
+        <a class="btn" id="contact-link" href="#contact">Email us</a>
       </div>
     </div>
   </section>
@@ -342,12 +342,11 @@
 </footer>
 
 <script>
-  // Site-wide contact address. Set once; the email button and the privacy page use it.
-  var SITE = { email: "dond@riversresearch.org" };
+  // Contact address, assembled here so it never appears as plain text in the page.
+  var SITE = { user: "dond", domain: "riversresearch.org" };
   (function () {
     var a = document.getElementById("contact-link");
-    if (SITE.email) { a.href = "mailto:" + SITE.email; a.textContent = SITE.email; }
-    else { a.style.display = "none"; }
+    a.href = "mailto:" + SITE.user + "@" + SITE.domain;
   })();
 </script>
 </body>

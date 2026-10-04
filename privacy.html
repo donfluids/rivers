@@ -89,7 +89,7 @@
     <p>If an app ever starts to collect or send data, we will update this page before that version is released and change the date above.</p>
 
     <h2>Contact</h2>
-    <p id="contact-line">Questions about this policy can be sent to Rivers Research LLC at <a href="mailto:dond@riversresearch.org">dond@riversresearch.org</a>.</p>
+    <p id="contact-line">Questions about this policy can be sent to Rivers Research LLC by <a id="mail-link" href="index.html#contact">email</a>.</p>
   </div>
 </main>
 
@@ -99,5 +99,9 @@
     <span><a href="index.html">Home</a></span>
   </div>
 </footer>
+<script>
+  // Contact address, assembled here so it never appears as plain text in the page.
+  document.getElementById("mail-link").href = "mailto:" + "dond" + "@" + "riversresearch.org";
+</script>
 </body>
 </html>
