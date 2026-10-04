@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rivers Research LLC</title>
+<meta name="description" content="Rivers Research LLC builds phone apps that keep everything on the phone, and carries out numerical research in fluid dynamics.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Rivers Research LLC">
+<meta property="og:description" content="Phone apps that keep everything on the phone, and numerical work in fluid dynamics.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F3EC;
+    --surface: #FFFDF9;
+    --ink: #1B2430;
+    --ink-2: #4B5563;
+    --muted: #6B7280;
+    --line: #E3DCD0;
+    --river: #173A4F;
+    --river-2: #24516B;
+    --teal: #2E7D8C;
+    --teal-soft: #DCEEF1;
+    --gold: #B8893A;
+    --shadow: 0 1px 2px rgba(27,36,48,.05), 0 12px 32px -16px rgba(27,36,48,.18);
+    --radius: 18px;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #111820;
+      --surface: #182230;
+      --ink: #E9E4DA;
+      --ink-2: #C3BDB1;
+      --muted: #8E98A6;
+      --line: #273442;
+      --river: #DCE7EE;
+      --river-2: #B9CCD9;
+      --teal: #7FC4D1;
+      --teal-soft: #1E3741;
+      --gold: #D7AC63;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #111820;
+    --surface: #182230;
+    --ink: #E9E4DA;
+    --ink-2: #C3BDB1;
+    --muted: #8E98A6;
+    --line: #273442;
+    --river: #DCE7EE;
+    --river-2: #B9CCD9;
+    --teal: #7FC4D1;
+    --teal-soft: #1E3741;
+    --gold: #D7AC63;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--teal); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  img { max-width: 100%; display: block; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.15; margin: 0; color: var(--river); letter-spacing: -0.01em; }
+  h1 { font-size: clamp(2.1rem, 5.2vw, 3.6rem); }
+  h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+  h3 { font-size: 1.45rem; }
+  p { margin: 0 0 1em; }
+  .wrap { width: min(1100px, 100% - 32px); margin-inline: auto; }
+  .eyebrow { font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
+  .lede { font-size: 1.15rem; color: var(--ink-2); max-width: 60ch; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--paper) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--river); font-family: var(--serif); font-size: 1.2rem; font-weight: 600; }
+  .brand img { width: 32px; height: 32px; }
+  .brand:hover { text-decoration: none; }
+  .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 26px; }
+  .nav li a { color: var(--ink-2); font-weight: 500; font-size: .95rem; }
+  .nav li a:hover { color: var(--teal); text-decoration: none; }
+  @media (max-width: 640px) { .nav ul { gap: 16px; } .nav li a { font-size: .88rem; } .brand span { display: none; } }
+
+  /* Hero */
+  .hero { padding: clamp(56px, 9vw, 110px) 0 clamp(48px, 7vw, 90px); display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+  .hero .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: .95rem; border: 1px solid transparent; }
+  .btn-primary { background: var(--river); color: var(--paper); }
+  .btn-primary:hover { background: var(--river-2); text-decoration: none; }
+  .btn-ghost { border-color: var(--line); color: var(--river); background: var(--surface); }
+  .btn-ghost:hover { border-color: var(--river-2); text-decoration: none; }
+  :root[data-theme="dark"] .btn-primary, :root:not([data-theme="light"]) .btn-primary { }
+  .hero-art { position: relative; min-height: 320px; }
+  .tile {
+    position: absolute; display: flex; align-items: center; gap: 14px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 14px 18px 14px 14px; box-shadow: var(--shadow);
+  }
+  .tile img { width: 56px; height: 56px; border-radius: 14px; }
+  .tile b { display: block; font-weight: 600; font-size: 1rem; color: var(--ink); }
+  .tile small { color: var(--muted); font-size: .82rem; }
+  .tile.t1 { left: 4%; top: 6%; }
+  .tile.t2 { right: 0; top: 38%; }
+  .tile.t3 { left: 12%; bottom: 4%; }
+  .river-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: .55; }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; }
+    .hero-art { min-height: 300px; }
+  }
+  @media (max-width: 480px) {
+    .hero-art { min-height: 260px; }
+    .tile { padding: 10px 14px 10px 10px; }
+    .tile img { width: 44px; height: 44px; border-radius: 11px; }
+    .tile.t2 { top: 36%; }
+  }
+
+  /* Sections */
+  section { padding: clamp(56px, 8vw, 96px) 0; border-top: 1px solid var(--line); }
+  .section-head { max-width: 62ch; margin-bottom: 40px; }
+  .section-head p { color: var(--ink-2); font-size: 1.08rem; margin-top: 14px; }
+
+  /* App cards */
+  .apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px;
+  }
+  .card-top { display: flex; align-items: center; gap: 16px; }
+  .card-top img { width: 64px; height: 64px; border-radius: 16px; }
+  .card-top h3 { margin: 0; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .chip { font-size: .72rem; font-weight: 600; letter-spacing: .04em; color: var(--teal); background: var(--teal-soft); padding: 3px 9px; border-radius: 999px; }
+  .card p { color: var(--ink-2); font-size: .98rem; margin: 0; }
+  .card ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: .93rem; display: grid; gap: 6px; }
+  .card .links { margin-top: auto; padding-top: 10px; display: flex; gap: 18px; flex-wrap: wrap; font-size: .92rem; font-weight: 500; }
+  @media (max-width: 960px) { .apps { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .apps { grid-template-columns: 1fr; } .card { padding: 22px; } }
+
+  /* Research */
+  .research { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .paper { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
+  .paper figure { margin: 0; background: color-mix(in srgb, var(--teal-soft) 55%, var(--surface)); border-bottom: 1px solid var(--line); padding: 18px 22px 10px; }
+  .paper svg { width: 100%; height: auto; max-height: 190px; }
+  .paper figcaption { font-size: .78rem; color: var(--muted); margin-top: 6px; }
+  .paper .body { padding: 22px 26px 26px; display: flex; flex-direction: column; gap: 12px; }
+  .paper p { color: var(--ink-2); font-size: .97rem; margin: 0; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .tags span { font-size: .75rem; color: var(--muted); border: 1px solid var(--line); padding: 3px 9px; border-radius: 999px; }
+  @media (max-width: 860px) { .research { grid-template-columns: 1fr; } }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
+  .about .text p { color: var(--ink-2); font-size: 1.05rem; }
+  .tenets { display: grid; gap: 14px; }
+  .tenet { border-left: 3px solid var(--gold); padding: 4px 0 4px 18px; }
+  .tenet b { display: block; font-family: var(--serif); font-size: 1.15rem; color: var(--river); font-weight: 500; margin-bottom: 4px; }
+  .tenet span { color: var(--ink-2); font-size: .95rem; }
+  @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* Contact */
+  .contact-box { background: var(--river); color: #EDE7DB; border-radius: var(--radius); padding: clamp(28px, 5vw, 48px); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+  :root[data-theme="dark"] .contact-box, :root:not([data-theme="light"]) .contact-box { }
+  .contact-box h2 { color: #FBF8F1; }
+  .contact-box p { color: #D5DEE5; margin: 10px 0 0; max-width: 50ch; }
+  .contact-box a.btn { background: #FBF8F1; color: #173A4F; }
+  .contact-box a.btn:hover { background: #fff; }
+  .contact-box .secondary { display: block; margin-top: 10px; color: #D5DEE5; font-size: .9rem; }
+  .contact-box .secondary a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .contact-box { background: #1F3447; } }
+  :root[data-theme="dark"] .contact-box { background: #1F3447; }
+  @media (max-width: 720px) { .contact-box { grid-template-columns: 1fr; } }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: .88rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Rivers Research LLC">
+      <img src="assets/mark.svg" alt="">
+      <span>Rivers Research</span>
+    </a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow">Rivers Research LLC</div>
+      <h1>Phone apps that keep everything on the phone, and numerical work in fluid dynamics.</h1>
+      <p class="lede" style="margin-top:20px">Rivers Research is an independent company. It publishes a Bible reader in English and Malayalam, a listening aid for keyboard players, and research code on the onset of convection and on turbulence statistics. Everything here was built in-house, from the databases inside the apps to the solvers behind the research.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#apps">See the apps</a>
+        <a class="btn btn-ghost" href="#research">Read about the research</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg class="river-lines" viewBox="0 0 400 320" preserveAspectRatio="none">
+        <g fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" opacity=".5">
+          <path d="M-20 60 C 80 20, 140 110, 240 70 S 400 40, 440 90"/>
+          <path d="M-20 130 C 80 90, 140 180, 240 140 S 400 110, 440 160"/>
+          <path d="M-20 200 C 80 160, 140 250, 240 210 S 400 180, 440 230"/>
+          <path d="M-20 270 C 80 230, 140 320, 240 280 S 400 250, 440 300"/>
+        </g>
+      </svg>
+      <div class="tile t1"><img src="assets/bible-en.png" alt=""><div><b>Bible</b><small>KJV, WEB, Hebrew and Greek</small></div></div>
+      <div class="tile t2"><img src="assets/bible-ml.png" alt=""><div><b>വേദപുസ്തകം</b><small>Malayalam Bible</small></div></div>
+      <div class="tile t3"><img src="assets/livekey.svg" alt=""><div><b>LiveKey</b><small>Key, chords, tempo, meter</small></div></div>
+    </div>
+  </div>
+
+  <section id="apps">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Apps</div>
+        <h2>Everything each app needs ships inside it.</h2>
+        <p>There is no account to make, no server to reach and no advertising. What you do in the app stays on the phone.</p>
+      </div>
+
+      <div class="apps">
+        <article class="card">
+          <div class="card-top">
+            <img src="assets/bible-en.png" alt="Bible app icon: an open book with aleph and alpha">
+            <div>
+              <h3>Bible</h3>
+              <div class="chips"><span class="chip">Android</span><span class="chip">iOS</span></div>
+            </div>
+          </div>
+          <p>The King James Version and the World English Bible, with the Hebrew and Greek underneath every word. Tap an underlined word to see the original, its grammar in plain English, a short meaning, the pronunciation and Strong's dictionary entry. From there, list every verse where the same Hebrew or Greek word stands, counted from the original text rather than from a translation's tags.</p>
+          <ul>
+            <li>Hebrew and Greek text of every verse, word by word, with transliteration and gloss</li>
+            <li>Highlights in four colours, notes, bookmarks, and marked passages that run over several verses</li>
+            <li>Search the text or the dictionary, or type a reference such as John 3:16 or a Strong's number such as G26</li>
+            <li>Poetry keeps its line breaks; footnotes and cross references open with a tap</li>
+            <li>Light, sepia and dark themes; text size in eight steps, or pinch to resize</li>
+            <li>Works without a connection; the whole text and dictionary ship inside the app</li>
+          </ul>
+          <div class="links">
+            <a href="https://github.com/donfluids/Bible">Source code</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <img src="assets/bible-ml.png" alt="Malayalam Bible app icon: an open book with aleph and alpha in green">
+            <div>
+              <h3 lang="ml">വേദപുസ്തകം</h3>
+              <div class="chips"><span class="chip">Android</span><span class="chip">iOS</span><span class="chip">Malayalam</span></div>
+            </div>
+          </div>
+          <p>The same reader with the Malayalam Sathyavedapusthakam of 1910 beside the King James Version, and a Malayalam interface. Malayalam words are linked to their Hebrew and Greek, so tapping a word, the occurrence lists and the rendering counts all work in Malayalam.</p>
+          <ul>
+            <li>Sathyavedapusthakam 1910, the King James Version, and the Hebrew and Greek interlinear</li>
+            <li>The Malayalam word a verse uses shown beside the original, with its English meaning</li>
+            <li>References take everyday spellings and the Catholic book names too</li>
+            <li>Search matches modern Malayalam spelling against the 1910 text</li>
+            <li>Interface in Malayalam, with English available</li>
+            <li>Installs beside the English app, with its own notes and highlights</li>
+          </ul>
+          <div class="links">
+            <a href="https://github.com/donfluids/Bible">Source code</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <img src="assets/livekey.svg" alt="LiveKey app icon: a note and tuning fork on dark blue">
+            <div>
+              <h3>LiveKey</h3>
+              <div class="chips"><span class="chip">Android</span></div>
+            </div>
+          </div>
+          <p>For the keyboard player who has to join a song that has already started. Tap Listen, point the phone at the singing, and it reports the key to play in, the chord sounding now, the tempo and the time signature. The key usually settles within two or three seconds.</p>
+          <ul>
+            <li>Key and mode, the relative key, the seven diatonic chords, and how sharp or flat the singers are of A&nbsp;=&nbsp;440&nbsp;Hz</li>
+            <li>The chords heard since the song began, with roman numerals or Nashville numbers</li>
+            <li>Hold freezes the key under your hands; Transpose shifts everything to what you should play</li>
+            <li>Beats per minute with a pulsing beat counter that marks the downbeat</li>
+            <li>Presets for a band, a guitar, or voices alone</li>
+            <li>All signal processing runs on the phone; no audio leaves the device</li>
+          </ul>
+          <div class="links">
+            <span style="color:var(--muted);font-weight:400">Android 8.0 and up</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Research</div>
+        <h2>Fluid dynamics, with code that tests itself first.</h2>
+        <p>Two lines of work. In both, the solver is checked against known results before it is used to say anything new.</p>
+      </div>
+
+      <div class="research">
+        <article class="paper">
+          <figure>
+            <svg viewBox="0 0 240 160" role="img" aria-label="Three concentration profiles in a boundary layer that thickens with time">
+              <g fill="none" stroke="var(--line)" stroke-width="1"><line x1="20" y1="16" x2="20" y2="144"/><line x1="20" y1="144" x2="220" y2="144"/></g>
+              <path fill="none" stroke="var(--teal)" stroke-width="1.6" opacity=".45" d="M220.0,16.0 L193.4,19.2 L167.5,22.4 L143.0,25.6 L120.5,28.8 L100.3,32.0 L82.9,35.2 L68.1,38.4 L55.9,41.6 L46.2,44.8 L38.7,48.0 L33.0,51.2 L28.8,54.4 L25.8,57.6 L23.8,60.8 L22.4,64.0 L21.5,67.2 L20.9,70.4 L20.5,73.6 L20.3,76.8 L20.2,80.0 L20.1,83.2 L20.0,86.4 L20.0,144.0"/>
+              <path fill="none" stroke="var(--teal)" stroke-width="1.8" opacity=".7" d="M220.0,16.0 L208.0,19.2 L196.2,22.4 L184.4,25.6 L172.8,28.8 L161.5,32.0 L150.5,35.2 L139.9,38.4 L129.7,41.6 L119.9,44.8 L110.7,48.0 L101.9,51.2 L93.6,54.4 L85.9,57.6 L78.7,60.8 L72.1,64.0 L66.0,67.2 L60.5,70.4 L55.4,73.6 L50.8,76.8 L46.7,80.0 L43.1,83.2 L39.8,86.4 L36.9,89.6 L34.4,92.8 L32.2,96.0 L30.2,99.2 L28.6,102.4 L27.1,105.6 L25.9,108.8 L24.9,112.0 L24.0,115.2 L23.3,118.4 L22.7,121.6 L22.2,124.8 L21.7,128.0 L21.4,131.2 L21.1,134.4 L20.9,137.6 L20.7,140.8 L20.5,144.0"/>
+              <path fill="none" stroke="var(--river)" stroke-width="2.2" d="M220.0,16.0 L214.0,19.2 L208.0,22.4 L202.1,25.6 L196.2,28.8 L190.3,32.0 L184.4,35.2 L178.6,38.4 L172.8,41.6 L167.1,44.8 L161.5,48.0 L156.0,51.2 L150.5,54.4 L145.2,57.6 L139.9,60.8 L134.8,64.0 L129.7,67.2 L124.8,70.4 L119.9,73.6 L115.2,76.8 L110.7,80.0 L106.2,83.2 L101.9,86.4 L97.7,89.6 L93.6,92.8 L89.7,96.0 L85.9,99.2 L82.3,102.4 L78.7,105.6 L75.4,108.8 L72.1,112.0 L69.0,115.2 L66.0,118.4 L63.2,121.6 L60.5,124.8 L57.9,128.0 L55.4,131.2 L53.1,134.4 L50.8,137.6 L48.7,140.8 L46.7,144.0"/>
+              <g font-family="Inter, sans-serif" font-size="9" fill="var(--muted)">
+                <text x="226" y="19">1</text><text x="8" y="147">0</text>
+                <text x="190" y="156">concentration</text>
+                <text x="6" y="60" transform="rotate(-90 12 80)" text-anchor="middle">depth</text>
+              </g>
+            </svg>
+            <figcaption>The unstable layer at three successive times. It thickens as the square root of time, so no single eigenvalue problem describes it.</figcaption>
+          </figure>
+          <div class="body">
+            <h3>When does a growing boundary layer turn over?</h3>
+            <p>Lay a heavier fluid over a lighter one, or heat a surface suddenly, and the unstable layer thickens with time. Because the base state keeps changing, stability cannot be read from a single eigenvalue problem. This work solves the linear initial-value problem with the operator re-evaluated at every step, derives the exact discrete adjoint of the time-stepper, and finds the initial disturbance that grows most, following the modified optimisation of Daniel, Tilton and Riaz (2013).</p>
+            <p>It covers porous media first and then the full Navier–Stokes equations at finite Prandtl number, with a two-dimensional direct simulation to check that the linear optimum survives at finite amplitude. One application is immersion cooling: the dimensionless onset is mapped to seconds and millimetres for dielectric coolants such as FC-72 and FC-40.</p>
+            <div class="tags"><span>Python</span><span>Adjoint methods</span><span>Non-modal stability</span><span>Direct numerical simulation</span></div>
+          </div>
+        </article>
+
+        <article class="paper">
+          <figure>
+            <svg viewBox="0 0 240 160" role="img" aria-label="A bell-shaped conditional average above a flat reference line">
+              <g fill="none" stroke="var(--line)" stroke-width="1"><line x1="20" y1="16" x2="20" y2="144"/><line x1="20" y1="144" x2="220" y2="144"/></g>
+              <line x1="20" y1="90" x2="220" y2="90" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+              <path fill="var(--teal)" opacity=".12" d="M20.0,107.4 L25.0,98.7 L30.0,89.6 L35.0,84.6 L40.0,82.5 L45.0,80.3 L50.0,78.1 L55.0,75.9 L60.0,73.7 L65.0,71.7 L70.0,69.7 L75.0,67.8 L80.0,66.1 L85.0,64.6 L90.0,63.2 L95.0,62.0 L100.0,61.0 L105.0,60.2 L110.0,59.7 L115.0,59.3 L120.0,59.2 L125.0,59.3 L130.0,59.7 L135.0,60.2 L140.0,61.0 L145.0,62.0 L150.0,63.2 L155.0,64.6 L160.0,66.1 L165.0,67.8 L170.0,69.7 L175.0,71.7 L180.0,73.7 L185.0,75.9 L190.0,78.1 L195.0,80.3 L200.0,82.5 L205.0,84.6 L210.0,89.6 L215.0,98.7 L220.0,107.4 L220,90 L20,90 Z"/>
+              <path fill="none" stroke="var(--river)" stroke-width="2.2" stroke-linejoin="round" d="M20.0,107.4 L25.0,98.7 L30.0,89.6 L35.0,84.6 L40.0,82.5 L45.0,80.3 L50.0,78.1 L55.0,75.9 L60.0,73.7 L65.0,71.7 L70.0,69.7 L75.0,67.8 L80.0,66.1 L85.0,64.6 L90.0,63.2 L95.0,62.0 L100.0,61.0 L105.0,60.2 L110.0,59.7 L115.0,59.3 L120.0,59.2 L125.0,59.3 L130.0,59.7 L135.0,60.2 L140.0,61.0 L145.0,62.0 L150.0,63.2 L155.0,64.6 L160.0,66.1 L165.0,67.8 L170.0,69.7 L175.0,71.7 L180.0,73.7 L185.0,75.9 L190.0,78.1 L195.0,80.3 L200.0,82.5 L205.0,84.6 L210.0,89.6 L215.0,98.7 L220.0,107.4"/>
+              <g font-family="Inter, sans-serif" font-size="9" fill="var(--muted)">
+                <text x="224" y="93">mean</text>
+                <text x="120" y="156" text-anchor="middle">quantile of the scalar</text>
+                <text x="6" y="60" transform="rotate(-90 12 80)" text-anchor="middle">dissipation</text>
+              </g>
+            </svg>
+            <figcaption>Dissipation averaged at each value of the scalar, in equal-population bins. The question is whether the bell is physics or an artifact of the averaging.</figcaption>
+          </figure>
+          <div class="body">
+            <h3>Is the bell in the conditional dissipation real?</h3>
+            <p>When the dissipation rate of turbulence is averaged conditionally on a passive scalar, a bell-shaped profile appears, large enough to matter for mixing models. Earlier work resolved it with two bins, and two points cannot tell a shape. A parallel pseudospectral code for incompressible isotropic turbulence with one passive scalar was written to find out, in Fortran 2008 with MPI, FFTW and parallel HDF5.</p>
+            <p>The conditional-averaging routines are a separate, unit-tested subsystem that can be pointed at data from any code. Every output carries both fixed-width and equal-population bins over the same samples, so the two can be compared directly. So far the bell survives equal-population binning, and a large part of its amplitude depends on the scalar being bounded.</p>
+            <div class="tags"><span>Fortran</span><span>MPI</span><span>Turbulence</span><span>Passive scalars</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="text">
+        <div class="eyebrow">About</div>
+        <h2>An independent software and research company.</h2>
+        <p style="margin-top:18px">Rivers Research LLC builds and publishes the apps on this page and carries out the research described above. The apps are written in TypeScript with React Native and in Kotlin; the research code in Python and Fortran.</p>
+        <p>The Bible texts, dictionaries and fonts inside the apps come from public-domain and open-licence sources. Each app lists them, with every change that was made, under Sources and licences in its settings.</p>
+      </div>
+      <div class="tenets">
+        <div class="tenet"><b>On the device</b><span>Apps carry their data with them and run without a connection. Notes and highlights are stored on the phone and travel with its normal backup.</span></div>
+        <div class="tenet"><b>Nothing collected</b><span>No accounts, no analytics, no advertising. The <a href="privacy.html">privacy policy</a> fits on one page.</span></div>
+        <div class="tenet"><b>Checked before claimed</b><span>Research code is validated against analytic solutions and published thresholds before it is pointed at an open question.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <h2>Get in touch</h2>
+          <p>Questions about an app, a bug to report, or an interest in the research: write and you will hear back.</p>
+          <span class="secondary">The Bible app's source is public at <a href="https://github.com/donfluids/Bible">github.com/donfluids/Bible</a>.</span>
+        </div>
+        <a class="btn" id="contact-link" href="#contact">Email Rivers Research</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Rivers Research LLC</span>
+    <span><a href="privacy.html">Privacy policy</a></span>
+  </div>
+</footer>
+
+<script>
+  // Site-wide contact address. Set once; the email button and the privacy page use it.
+  var SITE = { email: "" };
+  (function () {
+    var a = document.getElementById("contact-link");
+    if (SITE.email) { a.href = "mailto:" + SITE.email; a.textContent = SITE.email; }
+    else { a.style.display = "none"; }
+  })();
+</script>
+</body>
+</html>
