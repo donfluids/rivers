@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rivers Research LLC</title>
-<meta name="description" content="Rivers Research LLC makes Bible apps in English and Malayalam, with the Hebrew and Greek under every word, and LiveKey, an app that helps church keyboard players find the key.">
+<meta name="description" content="Rivers Research LLC makes Bible apps in English and Malayalam, with the Hebrew and Greek under every word.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Rivers Research LLC">
-<meta property="og:description" content="Bible apps in English and Malayalam, and LiveKey for church keyboard players.">
+<meta property="og:description" content="Bible apps in English and Malayalam, with the Hebrew and Greek under every word.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -118,9 +118,8 @@
   .tile img { width: 56px; height: 56px; border-radius: 14px; }
   .tile b { display: block; font-weight: 600; font-size: 1rem; color: var(--ink); }
   .tile small { color: var(--muted); font-size: .82rem; }
-  .tile.t1 { left: 4%; top: 6%; }
-  .tile.t2 { right: 0; top: 38%; }
-  .tile.t3 { left: 12%; bottom: 4%; }
+  .tile.t1 { left: 4%; top: 18%; }
+  .tile.t2 { right: 0; top: 52%; }
   .river-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: .55; }
   @media (max-width: 860px) {
     .hero { grid-template-columns: 1fr; gap: 36px; }
@@ -130,7 +129,7 @@
     .hero-art { min-height: 260px; }
     .tile { padding: 10px 14px 10px 10px; }
     .tile img { width: 44px; height: 44px; border-radius: 11px; }
-    .tile.t2 { top: 36%; }
+    .tile.t2 { top: 54%; }
   }
 
   /* Sections */
@@ -139,7 +138,7 @@
   .section-head p { color: var(--ink-2); font-size: 1.08rem; margin-top: 14px; }
 
   /* App cards */
-  .apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .apps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
   .card {
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
     padding: 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px;
@@ -152,7 +151,6 @@
   .card p { color: var(--ink-2); font-size: .98rem; margin: 0; }
   .card ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: .93rem; display: grid; gap: 6px; }
   .card .links { margin-top: auto; padding-top: 10px; display: flex; gap: 18px; flex-wrap: wrap; font-size: .92rem; font-weight: 500; }
-  @media (max-width: 960px) { .apps { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 640px) { .apps { grid-template-columns: 1fr; } .card { padding: 22px; } }
 
   /* About */
@@ -204,8 +202,8 @@
   <div class="wrap hero">
     <div>
       <div class="eyebrow">Rivers Research LLC</div>
-      <h1>Apps for reading the Bible and leading worship.</h1>
-      <p class="lede" style="margin-top:20px">We make a Bible app in English and in Malayalam that shows the Hebrew and Greek under every word. We also make LiveKey, which listens to the congregation and tells the keyboard player what key the song is in. All of our apps work offline.</p>
+      <h1>Apps for reading and studying the Bible.</h1>
+      <p class="lede" style="margin-top:20px">We make a Bible app in English and in Malayalam that shows the Hebrew and Greek under every word. Both editions work offline.</p>
       <div class="actions">
         <a class="btn btn-primary" href="#apps">See the apps</a>
         <a class="btn btn-ghost" href="#about">About Rivers Research</a>
@@ -222,7 +220,6 @@
       </svg>
       <div class="tile t1"><img src="assets/bible-en.png" alt=""><div><b>Bible</b><small>KJV, WEB, Hebrew and Greek</small></div></div>
       <div class="tile t2"><img src="assets/bible-ml.png" alt=""><div><b>വേദപുസ്തകം</b><small>Malayalam Bible</small></div></div>
-      <div class="tile t3"><img src="assets/livekey.svg" alt=""><div><b>LiveKey</b><small>Key, chords, tempo, meter</small></div></div>
     </div>
   </div>
 
@@ -278,28 +275,6 @@
             <a href="https://github.com/donfluids/Bible">Source code</a>
           </div>
         </article>
-
-        <article class="card">
-          <div class="card-top">
-            <img src="assets/livekey.svg" alt="LiveKey app icon: a note and tuning fork on dark blue">
-            <div>
-              <h3>LiveKey</h3>
-              <div class="chips"><span class="chip">Android</span></div>
-            </div>
-          </div>
-          <p>For keyboard players who need to join in after the congregation has started singing. Tap Listen and hold the phone toward the singing. LiveKey shows the key, the current chord, the tempo and the time signature, usually within a few seconds.</p>
-          <ul>
-            <li>The key, the chords that belong to it, and how far the singers are from standard pitch</li>
-            <li>A running list of the chords in the song, as letters or Nashville numbers</li>
-            <li>Hold keeps the key on screen while you play, and Transpose adjusts it for your keyboard</li>
-            <li>Tempo in beats per minute, with a beat counter</li>
-            <li>Settings for a full band, a guitar or voices only</li>
-            <li>Listening happens on the phone, and no audio is sent anywhere</li>
-          </ul>
-          <div class="links">
-            <span style="color:var(--muted);font-weight:400">Android 8.0 and up</span>
-          </div>
-        </article>
       </div>
     </div>
   </section>
@@ -309,7 +284,7 @@
       <div class="text">
         <div class="eyebrow">About</div>
         <h2>About us</h2>
-        <p style="margin-top:18px">Rivers Research LLC is an independent company that builds and publishes the apps on this page. We started making them for our own Bible study and for our own church services.</p>
+        <p style="margin-top:18px">Rivers Research LLC is an independent company that builds and publishes the apps on this page. We started making them for our own Bible study.</p>
         <p>Our apps do not collect personal information, show ads or require an account. Because they work offline, you can use them anywhere, including in a church with poor reception.</p>
       </div>
       <div class="tenets">
