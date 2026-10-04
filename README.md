@@ -13,4 +13,4 @@ A static site: `index.html`, `privacy.html` and the images in `assets/`. No buil
 
 1. Repository **Settings → Pages**.
 2. Under **Build and deployment** choose **Deploy from a branch**, pick the branch and the `/ (root)` folder, and save.
-3. For a custom domain, enter it under **Custom domain** on the same page. GitHub writes a `CNAME` file to the branch; point the domain's DNS at GitHub Pages as the page describes, then turn on **Enforce HTTPS**.
+3. The `CNAME` file sets the custom domain to riversresearch.org. Point the domain's DNS at GitHub Pages (A records for the apex and a CNAME for `www`, as the Pages settings page describes), wait for the check to pass, then turn on **Enforce HTTPS**.
