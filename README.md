@@ -4,7 +4,7 @@ A static site: `index.html`, `privacy.html` and the images in `assets/`. No buil
 
 ## Updating content
 
-- **Contact email**: set `SITE.email` at the bottom of `index.html`. Until it is set, the email button in the contact section is hidden.
+- **Contact email**: `SITE.email` at the bottom of `index.html`, and the Contact section of `privacy.html`.
 - **Store links**: add a link inside the `links` block of each app card in `index.html` once the listing is live.
 - **App icons**: `assets/bible-en.png` and `assets/bible-ml.png` are the icons from the Bible repository, reduced to 512 px. `assets/livekey.svg` is the LiveKey launcher icon redrawn as SVG.
 - **Colours and type**: the variables at the top of the `<style>` block in each page.
