@@ -150,7 +150,6 @@
   .chip { font-size: .72rem; font-weight: 600; letter-spacing: .04em; color: var(--teal); background: var(--teal-soft); padding: 3px 9px; border-radius: 999px; }
   .card p { color: var(--ink-2); font-size: .98rem; margin: 0; }
   .card ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: .93rem; display: grid; gap: 6px; }
-  .card .links { margin-top: auto; padding-top: 10px; display: flex; gap: 18px; flex-wrap: wrap; font-size: .92rem; font-weight: 500; }
   @media (max-width: 640px) { .apps { grid-template-columns: 1fr; } .card { padding: 22px; } }
 
   /* About */
@@ -162,18 +161,6 @@
   .tenet span { color: var(--ink-2); font-size: .95rem; }
   @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 32px; } }
 
-  /* Contact */
-  .contact-box { background: var(--river); color: #EDE7DB; border-radius: var(--radius); padding: clamp(28px, 5vw, 48px); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
-  :root[data-theme="dark"] .contact-box, :root:not([data-theme="light"]) .contact-box { }
-  .contact-box h2 { color: #FBF8F1; }
-  .contact-box p { color: #D5DEE5; margin: 10px 0 0; max-width: 50ch; }
-  .contact-box a.btn { background: #FBF8F1; color: #173A4F; }
-  .contact-box a.btn:hover { background: #fff; }
-  .contact-box .secondary { display: block; margin-top: 10px; color: #D5DEE5; font-size: .9rem; }
-  .contact-box .secondary a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .contact-box { background: #1F3447; } }
-  :root[data-theme="dark"] .contact-box { background: #1F3447; }
-  @media (max-width: 720px) { .contact-box { grid-template-columns: 1fr; } }
 
   footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: .88rem; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -192,7 +179,6 @@
       <ul>
         <li><a href="#apps">Apps</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </div>
@@ -249,9 +235,6 @@
             <li>Light, sepia and dark themes, with adjustable text size</li>
             <li>The full text and dictionary are included, so it works offline</li>
           </ul>
-          <div class="links">
-            <a href="https://github.com/donfluids/Bible">Source code</a>
-          </div>
         </article>
 
         <article class="card">
@@ -271,9 +254,6 @@
             <li>Interface in Malayalam, with English available</li>
             <li>Can be installed alongside the English app</li>
           </ul>
-          <div class="links">
-            <a href="https://github.com/donfluids/Bible">Source code</a>
-          </div>
         </article>
       </div>
     </div>
@@ -295,18 +275,6 @@
     </div>
   </section>
 
-  <section id="contact">
-    <div class="wrap">
-      <div class="contact-box">
-        <div>
-          <h2>Contact us</h2>
-          <p>Email us with questions, problems, or a translation you would like us to add.</p>
-          <span class="secondary">The Bible app's source is public at <a href="https://github.com/donfluids/Bible">github.com/donfluids/Bible</a>.</span>
-        </div>
-        <a class="btn" id="contact-link" href="#contact">Email us</a>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer>
@@ -316,13 +284,5 @@
   </div>
 </footer>
 
-<script>
-  // Contact address, assembled here so it never appears as plain text in the page.
-  var SITE = { user: "dond", domain: "riversresearch.org" };
-  (function () {
-    var a = document.getElementById("contact-link");
-    a.href = "mailto:" + SITE.user + "@" + SITE.domain;
-  })();
-</script>
 </body>
 </html>

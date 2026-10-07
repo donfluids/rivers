@@ -4,8 +4,8 @@ A static site: `index.html`, the Bible apps' privacy policy at `bible/privacy.ht
 
 ## Updating content
 
-- **Contact email**: on the home page the address is assembled by a short script at the bottom of `index.html` (`SITE`), so it is not shown as text. The privacy policy shows it in full, as Google Play requires. Change both if it changes.
-- **Store links**: add a link inside the `links` block of each app card in `index.html` once the listing is live.
+- **Contact email and code links**: the home page shows neither. The contact address appears only in the privacy policy's Contact section.
+- **Store links**: add a link at the end of each app card in `index.html` once the listing is live.
 - **App icons**: `assets/bible-en.png` and `assets/bible-ml.png` are the icons from the Bible repository, reduced to 512 px.
 - **Colours and type**: the variables at the top of the `<style>` block in each page.
 
