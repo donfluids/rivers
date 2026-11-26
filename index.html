@@ -9,6 +9,12 @@
 <meta property="og:title" content="Rivers Research">
 <meta property="og:description" content="Bible apps in English and Malayalam, with the Hebrew and Greek under every word.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://riversresearch.org/">
+<meta property="og:image" content="https://riversresearch.org/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="വേദപുസ്തകം, Malayalam–English Study Bible">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -189,6 +195,10 @@
   .feature-body li::before { content: ""; position: absolute; left: 4px; top: 1.15em; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
   @media (max-width: 760px) { .feature-body { grid-template-columns: 1fr; } }
   #malayalam { border-top: 0; padding-top: 0; }
+  @media (max-width: 760px) { .feature-body li:nth-child(n+5) { display: none; } .feature-body li:nth-child(4) { border-bottom: 0; } }
+  .tour { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 90px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 90px), transparent); }
+  .tour.at-end { -webkit-mask-image: none; mask-image: none; }
+  @media (max-width: 640px) { .tour:not(.at-end) { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); } }
 
   /* Coming soon */
   .soon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -264,7 +274,7 @@
     </a>
     <nav aria-label="Sections">
       <ul>
-        <li><a href="#apps">Apps</a></li>
+        <li><a href="#apps">The app</a></li>
         <li class="optional"><a href="#malayalam">Tour</a></li>
         <li><a href="#coming">Coming soon</a></li>
         <li><a href="#about">About</a></li>
@@ -286,8 +296,8 @@
       </div>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <img class="phone back" src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" alt="">
-      <img class="phone front" src="assets/malayalam/translations.webp" width="600" height="1296" alt="">
+      <img class="phone back" src="assets/malayalam/verse-card.webp" width="600" height="1296" alt="">
+      <img class="phone front" src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" alt="">
     </div>
   </div>
     <svg class="hills" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
@@ -341,7 +351,7 @@
         <div class="section-head">
           <div class="eyebrow">A closer look</div>
           <h2>Inside <span lang="ml">വേദപുസ്തകം</span></h2>
-          <p>Seven screens from the app. Swipe or use the arrows to see them all.</p>
+          <p>Seven screens from the app. Scroll sideways to see them all.</p>
         </div>
         <div class="tour-nav">
           <button type="button" data-dir="-1" aria-label="Previous screens" aria-controls="tour">&#8592;</button>
@@ -415,7 +425,6 @@
           <ul>
             <li>King James, Berean Standard, World English, Literal Standard and American Standard</li>
             <li>Hebrew and Greek text of every verse, word by word</li>
-            <li>Highlights, notes, bookmarks and a notebook</li>
           </ul>
           <a class="join" href="#coming" data-app="Bible (English)" data-platforms="Android or iPhone">Join the testers</a>
         </article>
@@ -429,8 +438,7 @@
           </div>
           <p>A Tamil–English study Bible: the Tamil Indian Revised Version with four English translations and the Hebrew and Greek texts.</p>
           <ul>
-            <li>Tamil Indian Revised Version</li>
-            <li>King James, Berean Standard, Literal Standard and American Standard</li>
+            <li>Tamil Indian Revised Version, with four English translations</li>
             <li>Interface in Tamil, with English available</li>
           </ul>
           <a class="join" href="#coming" data-app="வேதாகமம் (Tamil)" data-platforms="Android or iPhone">Join the testers</a>
@@ -445,9 +453,7 @@
           </div>
           <p>Eight Bibles in four languages in one app. On first opening it asks which language to read in, and opens that Bible with its menus in the same language.</p>
           <ul>
-            <li>Five English translations</li>
-            <li>Malayalam Sathyavedapusthakam 1910</li>
-            <li>Tamil and Hindi Indian Revised Version</li>
+            <li>Five English Bibles, and one each in Malayalam, Tamil and Hindi</li>
             <li>Hebrew and Greek interlinear</li>
           </ul>
           <a class="join" href="#coming" data-app="Bibles (four languages)" data-platforms="Android">Join the testers</a>
@@ -508,6 +514,7 @@
       var max = row.scrollWidth - row.clientWidth - 2;
       buttons[0].disabled = row.scrollLeft <= 2;
       buttons[1].disabled = row.scrollLeft >= max;
+      row.classList.toggle("at-end", row.scrollLeft >= max);
     }
     buttons.forEach(function (b) {
       b.addEventListener("click", function () {
