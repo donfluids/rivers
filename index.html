@@ -220,13 +220,14 @@
   @media (max-width: 640px) { .soon-grid { grid-template-columns: 1fr; } }
 
   /* About */
-  .about { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
+  .about { display: grid; gap: 36px; }
+  .about .text { max-width: 62ch; }
   .about .text p { color: var(--ink-2); font-size: 1.05rem; }
-  .tenets { display: grid; gap: 14px; }
+  .tenets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  @media (max-width: 760px) { .tenets { grid-template-columns: 1fr; gap: 16px; } }
   .tenet { border-left: 3px solid var(--gold); padding: 4px 0 4px 18px; }
   .tenet b { display: block; font-family: var(--serif); font-size: 1.15rem; color: var(--river); font-weight: 500; margin-bottom: 4px; }
   .tenet span { color: var(--ink-2); font-size: .95rem; }
-  @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 32px; } }
 
 
   footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: .88rem; }
@@ -325,8 +326,8 @@
       </div>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <img class="phone back" src="assets/malayalam/verse-card.webp" width="600" height="1296" alt="">
-      <img class="phone front" src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" alt="">
+      <img class="phone back" src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" alt="">
+      <img class="phone front" src="assets/malayalam/verse-card.webp" width="600" height="1296" alt="">
     </div>
   </div>
     <svg class="hills" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
@@ -455,7 +456,7 @@
           </div>
           <p>An English study Bible with the Hebrew and Greek underneath every word. Tap a word to see the original, its grammar in plain English, its meaning and Strong's dictionary entry.</p>
           <ul>
-            <li>King James, Berean Standard, World English, Literal Standard and American Standard</li>
+            <li>Five English translations, including the King James Version</li>
             <li>Hebrew and Greek text of every verse, word by word</li>
           </ul>
           <a class="join" href="#coming" data-app="Bible (English)" data-platforms="Android or iPhone">Join the testers</a>
@@ -501,12 +502,11 @@
         <div class="eyebrow">About</div>
         <h2>About us</h2>
         <p style="margin-top:18px">Rivers Research is an independent company that builds and publishes the apps on this page. We started making them for our own Bible study.</p>
-        <p>Our apps do not collect personal information, show ads or require an account. Because they work offline, you can use them anywhere, including in a church with poor reception.</p>
       </div>
       <div class="tenets">
-        <div class="tenet"><b>Works offline</b><span>Your notes and highlights are saved on your phone and included in its regular backup.</span></div>
-        <div class="tenet"><b>Private</b><span>We do not collect any data from our apps. Our <a href="bible/privacy">privacy policy</a> explains the details.</span></div>
-        <div class="tenet"><b>Trusted sources</b><span>The apps include the complete King James Version, World English Bible and 1910 Sathyavedapusthakam, and the Malayalam app adds the IRV, the OMCV and three more English translations. The Hebrew and Greek text comes from the Leningrad Codex and STEPBible. Each app lists its sources in its settings.</span></div>
+        <div class="tenet"><b>Works offline</b><span>The whole Bible is inside the app, so you can use it anywhere, including in a church with poor reception.</span></div>
+        <div class="tenet"><b>Private</b><span>No accounts, no ads and no data collected. Your notes stay on your phone. Our <a href="bible/privacy">privacy policy</a> explains the details.</span></div>
+        <div class="tenet"><b>Trusted sources</b><span>The Hebrew and Greek text comes from the Leningrad Codex and STEPBible. Each app lists every source in its settings.</span></div>
       </div>
     </div>
   </section>
