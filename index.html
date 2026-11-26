@@ -22,8 +22,8 @@
     --line: #E3DCD0;
     --river: #173A4F;
     --river-2: #24516B;
-    --teal: #2E7D8C;
-    --teal-soft: #DCEEF1;
+    --teal: #7A4E1D;
+    --teal-soft: #F1E6D2;
     --gold: #B8893A;
     --shadow: 0 1px 2px rgba(27,36,48,.05), 0 12px 32px -16px rgba(27,36,48,.18);
     --radius: 18px;
@@ -40,8 +40,8 @@
       --line: #273442;
       --river: #DCE7EE;
       --river-2: #B9CCD9;
-      --teal: #7FC4D1;
-      --teal-soft: #1E3741;
+      --teal: #E2C08A;
+      --teal-soft: #3A2F20;
       --gold: #D7AC63;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6);
     }
@@ -55,8 +55,8 @@
     --line: #273442;
     --river: #DCE7EE;
     --river-2: #B9CCD9;
-    --teal: #7FC4D1;
-    --teal-soft: #1E3741;
+    --teal: #E2C08A;
+    --teal-soft: #3A2F20;
     --gold: #D7AC63;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6);
   }
@@ -109,27 +109,16 @@
   .btn-ghost { border-color: var(--line); color: var(--river); background: var(--surface); }
   .btn-ghost:hover { border-color: var(--river-2); text-decoration: none; }
   :root[data-theme="dark"] .btn-primary, :root:not([data-theme="light"]) .btn-primary { }
-  .hero-art { position: relative; min-height: 320px; }
-  .tile {
-    position: absolute; display: flex; align-items: center; gap: 14px;
-    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
-    padding: 14px 18px 14px 14px; box-shadow: var(--shadow);
-  }
-  .tile img { width: 56px; height: 56px; border-radius: 14px; }
-  .tile b { display: block; font-weight: 600; font-size: 1rem; color: var(--ink); }
-  .tile small { color: var(--muted); font-size: .82rem; }
-  .tile.t1 { left: 4%; top: 18%; }
-  .tile.t2 { right: 0; top: 52%; }
-  .river-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: .55; }
+  .hero-art { position: relative; height: 500px; }
+  .phone { position: absolute; width: 232px; height: auto; filter: drop-shadow(0 22px 30px rgba(60,40,15,.22)); }
+  .phone.front { left: 6%; top: 0; transform: rotate(-4deg); }
+  .phone.back { right: 2%; top: 34px; transform: rotate(5deg); }
   @media (max-width: 860px) {
     .hero { grid-template-columns: 1fr; gap: 36px; }
-    .hero-art { min-height: 300px; }
-  }
-  @media (max-width: 480px) {
-    .hero-art { min-height: 260px; }
-    .tile { padding: 10px 14px 10px 10px; }
-    .tile img { width: 44px; height: 44px; border-radius: 11px; }
-    .tile.t2 { top: 54%; }
+    .hero-art { height: 380px; max-width: 420px; margin-inline: auto; width: 100%; }
+    .phone { width: 172px; }
+    .phone.front { left: 4%; }
+    .phone.back { right: 4%; top: 26px; }
   }
 
   /* Sections */
@@ -164,8 +153,6 @@
   .tour-nav button:hover { border-color: var(--river-2); }
   .tour-nav button:disabled { opacity: .35; cursor: default; box-shadow: none; }
   .tour-nav button:focus-visible, .tour:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
-  .tour-banner { margin: 0 0 36px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #F6F0E4; }
-  .tour-banner img { width: 100%; height: auto; }
   .tour {
     list-style: none; margin: 0; padding: 6px 4px 22px; display: grid; grid-auto-flow: column;
     grid-auto-columns: minmax(210px, 250px); gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory;
@@ -182,7 +169,20 @@
     .tour { grid-auto-columns: 72%; gap: 20px; }
   }
   @media (max-width: 640px) { .apps { grid-template-columns: 1fr; } .card { padding: 22px; } }
-  .apps.single { grid-template-columns: 1fr; max-width: 760px; }
+  .feature { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); overflow: hidden; }
+  .feature-banner { margin: 0; background: #F6F0E4; border-bottom: 1px solid var(--line); }
+  .feature-banner img { width: 100%; height: auto; }
+  .feature-body { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); padding: clamp(22px, 3.4vw, 40px); align-items: start; }
+  .feature-intro { display: grid; gap: 18px; justify-items: start; }
+  .feature-intro .card-top { display: flex; align-items: center; gap: 16px; }
+  .feature-intro .card-top img { width: 72px; height: 72px; border-radius: 18px; }
+  .feature-intro p { margin: 0; color: var(--ink-2); font-size: 1.05rem; }
+  .feature-body ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; color: var(--ink-2); font-size: .97rem; }
+  .feature-body li { padding: 11px 0 11px 26px; border-bottom: 1px solid var(--line); position: relative; }
+  .feature-body li:last-child { border-bottom: 0; }
+  .feature-body li::before { content: ""; position: absolute; left: 4px; top: 1.15em; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+  @media (max-width: 760px) { .feature-body { grid-template-columns: 1fr; } }
+  #malayalam { border-top: 0; padding-top: 0; }
 
   /* Coming soon */
   .soon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -211,6 +211,8 @@
   footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: .88rem; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   footer a { color: var(--ink-2); }
+  .foot-brand { display: inline-flex; align-items: center; gap: 10px; }
+  .foot-links { display: inline-flex; gap: 22px; flex-wrap: wrap; }
 
   /* Lamplight background: a warm glow behind the hero, hills at its foot, faint paper grain */
   :root { --glow: rgba(214, 150, 62, .26); --glow-2: rgba(240, 200, 130, .30); --hill-2: #E3D2B6; --hill-3: #D7C09C; --grain-opacity: .07; }
@@ -257,8 +259,8 @@
     <nav aria-label="Sections">
       <ul>
         <li><a href="#apps">Apps</a></li>
-        <li><a href="#coming">Coming soon</a></li>
         <li><a href="#malayalam">Tour</a></li>
+        <li><a href="#coming">Coming soon</a></li>
         <li><a href="#about">About</a></li>
       </ul>
     </nav>
@@ -278,16 +280,8 @@
       </div>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <svg class="river-lines" viewBox="0 0 400 320" preserveAspectRatio="none">
-        <g fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" opacity=".5">
-          <path d="M-20 60 C 80 20, 140 110, 240 70 S 400 40, 440 90"/>
-          <path d="M-20 130 C 80 90, 140 180, 240 140 S 400 110, 440 160"/>
-          <path d="M-20 200 C 80 160, 140 250, 240 210 S 400 180, 440 230"/>
-          <path d="M-20 270 C 80 230, 140 320, 240 280 S 400 250, 440 300"/>
-        </g>
-      </svg>
-      <div class="tile t1"><img src="assets/bible-ml.png" alt=""><div><b>വേദപുസ്തകം</b><small>Malayalam–English Study Bible</small></div></div>
-      <div class="tile t2"><img src="assets/bible-ta.png" alt=""><div><b lang="ta">வேதாகமம்</b><small>Tamil, coming soon</small></div></div>
+      <img class="phone back" src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" alt="">
+      <img class="phone front" src="assets/malayalam/translations.webp" width="600" height="1296" alt="">
     </div>
   </div>
     <svg class="hills" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
@@ -300,21 +294,27 @@
   <section id="apps">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow">Apps</div>
-        <h2>Available now</h2>
-        <p>You do not need an account to use them, and they show no ads. Once installed, they work without an internet connection.</p>
+        <div class="eyebrow">Available now</div>
+        <h2>Our Malayalam–English study Bible</h2>
+        <p>It needs no account and shows no ads. Once installed, it works without an internet connection.</p>
       </div>
 
-      <div class="apps single">
-        <article class="card">
-          <div class="card-top">
-            <img src="assets/bible-ml.png" alt="വേദപുസ്തകം app icon: a lamp flame above an open book">
-            <div>
-              <h3 lang="ml">വേദപുസ്തകം</h3>
-              <div class="chips"><span class="chip">Android</span><span class="chip soon">Coming soon on iPhone</span><span class="chip">Malayalam</span></div>
+      <article class="feature">
+        <figure class="feature-banner">
+          <img src="assets/malayalam/banner.webp" srcset="assets/malayalam/banner.webp 1600w, assets/malayalam/banner-2400.webp 2400w" sizes="(min-width: 1132px) 1100px, calc(100vw - 32px)" width="1600" height="686" decoding="async" alt="വേദപുസ്തകം, Malayalam–English Study Bible: three Malayalam and four English translations, with the Hebrew and Greek texts. Two phones show John 1 and the translation comparison.">
+        </figure>
+        <div class="feature-body">
+          <div class="feature-intro">
+            <div class="card-top">
+              <img src="assets/bible-ml.png" alt="വേദപുസ്തകം app icon: a lamp flame above an open book">
+              <div>
+                <h3 lang="ml">വേദപുസ്തകം</h3>
+                <div class="chips"><span class="chip">Android</span><span class="chip soon">Coming soon on iPhone</span></div>
+              </div>
             </div>
+            <p>Three Malayalam translations, four English ones, and the Hebrew and Greek texts. Each Malayalam word is linked to the Hebrew or Greek behind it, so you can tap a word and study it in Malayalam.</p>
+            <a class="btn btn-primary" href="#malayalam">See the screens</a>
           </div>
-          <p>A Malayalam–English study Bible, with three Malayalam translations, four English ones, and the Hebrew and Greek texts. Each Malayalam word is linked to the Hebrew or Greek behind it, so you can tap a word and study it in Malayalam.</p>
           <ul>
             <li>Sathyavedapusthakam 1910, the Indian Revised Version (IRV) and the OMCV</li>
             <li>King James, Berean Standard, Literal Standard and American Standard in English</li>
@@ -324,9 +324,68 @@
             <li>Share a verse as a picture card, with an optional message</li>
             <li>Interface in Malayalam, with English available</li>
           </ul>
-          <a class="more" href="#malayalam">Take a closer look</a>
-        </article>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="malayalam">
+    <div class="wrap">
+      <div class="tour-head">
+        <div class="section-head">
+          <div class="eyebrow">A closer look</div>
+          <h2>Inside <span lang="ml">വേദപുസ്തകം</span></h2>
+          <p>Seven screens from the app. Swipe or use the arrows to see them all.</p>
+        </div>
+        <div class="tour-nav">
+          <button type="button" data-dir="-1" aria-label="Previous screens" aria-controls="tour">&#8592;</button>
+          <button type="button" data-dir="1" aria-label="Next screens" aria-controls="tour">&#8594;</button>
+        </div>
       </div>
+      <ol class="tour" id="tour" tabindex="0" aria-label="Screens from വേദപുസ്തകം">
+          <li>
+            <figure>
+              <img src="assets/malayalam/translations.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1 in the Sathyavedapusthakam 1910, open in the reader">
+              <figcaption><h3>Three Malayalam translations</h3><p>Sathyavedapusthakam 1910, IRV and OMCV, with four English translations</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" loading="lazy" decoding="async" alt="The Malayalam word for beginning selected, showing the Greek word archē and its meaning">
+              <figcaption><h3>Hebrew and Greek</h3><p>Selecting a word shows the word it translates</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/compare.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:2 shown in three Malayalam and four English translations">
+              <figcaption><h3>Comparing translations</h3><p>One verse in all seven translations</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/verse-options.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:2–3 selected, with copy, share, highlight, bookmark and note buttons">
+              <figcaption><h3>Verse options</h3><p>Selecting a verse number: copy, share, highlight, bookmark or note</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/verse-card.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:3 made into a picture card, with occasion and design choices">
+              <figcaption><h3>A verse as an image</h3><p>For sharing, with an optional message</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/notebook.webp" width="600" height="1296" loading="lazy" decoding="async" alt="A notebook page collecting three Malayalam verses about love">
+              <figcaption><h3>Notebook</h3><p>Typed or handwritten pages, stored on the device</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/search.webp" width="600" height="1296" loading="lazy" decoding="async" alt="A search for the Malayalam word for love, finding 58 verses">
+              <figcaption><h3>Search</h3><p>In Malayalam or English, without an internet connection</p></figcaption>
+            </figure>
+          </li>
+      </ol>
     </div>
   </section>
 
@@ -375,7 +434,7 @@
             <img src="assets/bible-india.png" alt="Bibles app icon: a lamp flame above an open book">
             <div>
               <h3>Bibles</h3>
-              <div class="chips"><span class="chip soon">Android</span><span class="chip">English, Malayalam, Tamil, Hindi</span></div>
+              <div class="chips"><span class="chip soon">Android</span><span class="chip">Four languages</span></div>
             </div>
           </div>
           <p>Eight Bibles in four languages in one app. On first opening it asks which language to read in, and opens that Bible with its menus in the same language.</p>
@@ -389,69 +448,6 @@
         </article>
       </div>
       <p class="soon-note">Testing is free. Tell us whether you use Android or iPhone, and we will send you an invitation when the test version is ready.</p>
-    </div>
-  </section>
-
-  <section id="malayalam">
-    <div class="wrap">
-      <div class="tour-head">
-        <div class="section-head">
-          <div class="eyebrow">A closer look</div>
-          <h2>Inside <span lang="ml">വേദപുസ്തകം</span></h2>
-          <p>Seven screens from the Malayalam app, coming soon on iPhone.</p>
-        </div>
-        <div class="tour-nav">
-          <button type="button" data-dir="-1" aria-label="Previous screens" aria-controls="tour">&#8592;</button>
-          <button type="button" data-dir="1" aria-label="Next screens" aria-controls="tour">&#8594;</button>
-        </div>
-      </div>
-      <figure class="tour-banner">
-        <img src="assets/malayalam/banner.webp" srcset="assets/malayalam/banner.webp 1600w, assets/malayalam/banner-2400.webp 2400w" sizes="(min-width: 1132px) 1100px, calc(100vw - 32px)" width="1600" height="686" loading="lazy" decoding="async" alt="വേദപുസ്തകം, Malayalam–English Study Bible: three Malayalam and four English translations, with the Hebrew and Greek texts. Two phones show John 1 and the translation comparison.">
-      </figure>
-      <ol class="tour" id="tour" tabindex="0" aria-label="Screens from വേദപുസ്തകം">
-          <li>
-            <figure>
-              <img src="assets/malayalam/translations.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1 in the Sathyavedapusthakam 1910, open in the reader">
-              <figcaption><h3>Three Malayalam translations</h3><p>Sathyavedapusthakam 1910, IRV and OMCV, with four English translations</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" loading="lazy" decoding="async" alt="The Malayalam word for beginning selected, showing the Greek word archē and its meaning">
-              <figcaption><h3>Hebrew and Greek</h3><p>Selecting a word shows the word it translates</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/compare.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:2 shown in three Malayalam and four English translations">
-              <figcaption><h3>Comparing translations</h3><p>One verse in all seven translations</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/verse-options.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:2–3 selected, with copy, share, highlight, bookmark and note buttons">
-              <figcaption><h3>Verse options</h3><p>Selecting a verse number: copy, share, highlight, bookmark or note</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/verse-card.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:3 made into a picture card, with occasion and design choices">
-              <figcaption><h3>A verse as an image</h3><p>For sharing, with an optional message</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/notebook.webp" width="600" height="1296" loading="lazy" decoding="async" alt="A notebook page collecting three Malayalam verses about love">
-              <figcaption><h3>Notebook</h3><p>Typed or handwritten pages, stored on the device</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/search.webp" width="600" height="1296" loading="lazy" decoding="async" alt="A search for the Malayalam word for love, finding 58 verses">
-              <figcaption><h3>Search</h3><p>In Malayalam or English, without an internet connection</p></figcaption>
-            </figure>
-          </li>
-      </ol>
     </div>
   </section>
 
@@ -475,8 +471,8 @@
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Rivers Research LLC</span>
-    <span><a href="bible/privacy">Privacy policy</a></span>
+    <span class="foot-brand"><img src="assets/mark.svg" alt="" width="22" height="22"> © 2026 Rivers Research LLC</span>
+    <span class="foot-links"><a href="#apps">App</a><a href="#coming">Coming soon</a><a href="bible/privacy">Privacy policy</a></span>
   </div>
 </footer>
 
