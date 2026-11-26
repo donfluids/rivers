@@ -6,7 +6,8 @@ A static site: `index.html`, the Bible apps' privacy policy at `bible/privacy.ht
 
 - **Contact email and code links**: the home page shows neither. The contact address appears only in the privacy policy's Contact section.
 - **Store links**: add a link at the end of each app card in `index.html` once the listing is live.
-- **App icons**: `assets/bible-en.png` and `assets/bible-ml.png` are the icons from the Bible repository, reduced to 512 px.
+- **App icons**: `assets/bible-en.png` and `assets/bible-ml.png` are the apps' icons from the website asset pack, reduced to 256 px.
+- **Malayalam app tour**: `assets/malayalam/` holds the seven App Store screenshots cropped to the phone frame, in the order the asset pack gives, and the header banner at 1600 and 2400 px.
 - **Colours and type**: the variables at the top of the `<style>` block in each page.
 
 ## Publishing on GitHub Pages
