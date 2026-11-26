@@ -211,6 +211,39 @@
   footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: .88rem; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   footer a { color: var(--ink-2); }
+
+  /* Lamplight background: a warm glow behind the hero, hills at its foot, faint paper grain */
+  :root { --glow: rgba(214, 150, 62, .26); --glow-2: rgba(240, 200, 130, .30); --hill-2: #E3D2B6; --hill-3: #D7C09C; --grain-opacity: .07; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --glow: rgba(214, 150, 62, .16); --glow-2: rgba(240, 190, 110, .10); --hill-2: #1C2734; --hill-3: #22303F; --grain-opacity: .05; }
+  }
+  :root[data-theme="dark"] { --glow: rgba(214, 150, 62, .16); --glow-2: rgba(240, 190, 110, .10); --hill-2: #1C2734; --hill-3: #22303F; --grain-opacity: .05; }
+  .hero-band { position: relative; isolation: isolate; overflow: hidden; }
+  .hero-band::before {
+    content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none;
+    background:
+      radial-gradient(42% 60% at 76% 34%, var(--glow-2), transparent 70%),
+      radial-gradient(70% 90% at 80% 20%, var(--glow), transparent 72%);
+  }
+  .hero-band .hero { padding-bottom: clamp(90px, 12vw, 150px); }
+  @media (max-width: 860px) {
+    .hero-band::before {
+      background:
+        radial-gradient(60% 30% at 70% 74%, var(--glow-2), transparent 70%),
+        radial-gradient(90% 40% at 75% 70%, var(--glow), transparent 72%);
+    }
+  }
+  .hills { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: clamp(90px, 13vw, 170px); z-index: -1; pointer-events: none; }
+  .hills path:nth-child(1) { fill: var(--hill-2); opacity: .7; }
+  .hills path:nth-child(2) { fill: var(--hill-3); opacity: .55; }
+  .hills path:nth-child(3) { fill: var(--paper); }
+  #apps { border-top: 0; }
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .18 0 0 0 .55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); opacity: var(--grain-opacity); mix-blend-mode: multiply;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body::after { mix-blend-mode: screen; } }
+  :root[data-theme="dark"] body::after { mix-blend-mode: screen; }
 </style>
 </head>
 <body>
@@ -233,6 +266,7 @@
 </header>
 
 <main id="top">
+  <div class="hero-band">
   <div class="wrap hero">
     <div>
       <div class="eyebrow">Rivers Research LLC</div>
@@ -255,6 +289,12 @@
       <div class="tile t1"><img src="assets/bible-ml.png" alt=""><div><b>വേദപുസ്തകം</b><small>Malayalam–English Study Bible</small></div></div>
       <div class="tile t2"><img src="assets/bible-ta.png" alt=""><div><b lang="ta">வேதாகமம்</b><small>Tamil, coming soon</small></div></div>
     </div>
+  </div>
+    <svg class="hills" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 120 C 180 70, 340 70, 520 105 S 860 150, 1040 110 S 1300 60, 1440 95 L1440 200 L0 200 Z"/>
+      <path d="M0 150 C 200 115, 400 125, 600 145 S 980 180, 1180 140 S 1380 120, 1440 132 L1440 200 L0 200 Z"/>
+      <path d="M0 178 C 260 160, 520 168, 760 182 S 1180 196, 1440 170 L1440 200 L0 200 Z"/>
+    </svg>
   </div>
 
   <section id="apps">
