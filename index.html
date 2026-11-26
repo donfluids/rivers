@@ -87,7 +87,9 @@
   /* Header */
   header {
     position: sticky; top: 0; z-index: 10;
+    background: var(--paper);
     background: color-mix(in srgb, var(--paper) 85%, transparent);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
@@ -99,6 +101,10 @@
   .nav li a { color: var(--ink-2); font-weight: 500; font-size: .95rem; }
   .nav li a:hover { color: var(--teal); text-decoration: none; }
   @media (max-width: 640px) { .nav ul { gap: 16px; } .nav li a { font-size: .88rem; } .brand span { display: none; } }
+
+  .nav li a { white-space: nowrap; display: inline-block; padding: 10px 0; }
+  @media (max-width: 380px) { .nav ul { gap: 12px; } .nav li a { font-size: .84rem; } }
+  @media (max-width: 330px) { .nav li.optional { display: none; } }
 
   /* Hero */
   .hero { padding: clamp(56px, 9vw, 110px) 0 clamp(48px, 7vw, 90px); display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
@@ -259,7 +265,7 @@
     <nav aria-label="Sections">
       <ul>
         <li><a href="#apps">Apps</a></li>
-        <li><a href="#malayalam">Tour</a></li>
+        <li class="optional"><a href="#malayalam">Tour</a></li>
         <li><a href="#coming">Coming soon</a></li>
         <li><a href="#about">About</a></li>
       </ul>
