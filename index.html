@@ -150,6 +150,37 @@
   .chip { font-size: .72rem; font-weight: 600; letter-spacing: .04em; color: var(--teal); background: var(--teal-soft); padding: 3px 9px; border-radius: 999px; }
   .card p { color: var(--ink-2); font-size: .98rem; margin: 0; }
   .card ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: .93rem; display: grid; gap: 6px; }
+  .chip.soon { background: transparent; color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); }
+  .card .more { margin-top: auto; padding-top: 6px; font-weight: 600; font-size: .95rem; }
+
+  /* Feature tour */
+  .tour-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+  .tour-head .section-head { margin-bottom: 0; }
+  .tour-nav { display: flex; gap: 10px; flex-shrink: 0; }
+  .tour-nav button {
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface);
+    color: var(--river); font-size: 1.25rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow);
+  }
+  .tour-nav button:hover { border-color: var(--river-2); }
+  .tour-nav button:disabled { opacity: .35; cursor: default; box-shadow: none; }
+  .tour-nav button:focus-visible, .tour:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+  .tour-banner { margin: 0 0 36px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #F6F0E4; }
+  .tour-banner img { width: 100%; height: auto; }
+  .tour {
+    list-style: none; margin: 0; padding: 6px 4px 22px; display: grid; grid-auto-flow: column;
+    grid-auto-columns: minmax(210px, 250px); gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4px; scrollbar-width: thin; overscroll-behavior-x: contain;
+  }
+  .tour li { scroll-snap-align: start; min-width: 0; }
+  .tour figure { margin: 0; display: grid; gap: 16px; }
+  .tour img { width: 100%; height: auto; filter: drop-shadow(0 14px 20px rgba(27,36,48,.14)); }
+  .tour figcaption h3 { font-size: 1.15rem; margin-bottom: 4px; }
+  .tour figcaption p { margin: 0; color: var(--ink-2); font-size: .92rem; line-height: 1.5; }
+  @media (max-width: 640px) {
+    .tour-head { display: block; }
+    .tour-nav { display: none; }
+    .tour { grid-auto-columns: 72%; gap: 20px; }
+  }
   @media (max-width: 640px) { .apps { grid-template-columns: 1fr; } .card { padding: 22px; } }
 
   /* About */
@@ -178,6 +209,7 @@
     <nav aria-label="Sections">
       <ul>
         <li><a href="#apps">Apps</a></li>
+        <li><a href="#malayalam">Tour</a></li>
         <li><a href="#about">About</a></li>
       </ul>
     </nav>
@@ -205,7 +237,7 @@
         </g>
       </svg>
       <div class="tile t1"><img src="assets/bible-en.png" alt=""><div><b>Bible</b><small>KJV, WEB, Hebrew and Greek</small></div></div>
-      <div class="tile t2"><img src="assets/bible-ml.png" alt=""><div><b>വേദപുസ്തകം</b><small>Malayalam Bible</small></div></div>
+      <div class="tile t2"><img src="assets/bible-ml.png" alt=""><div><b>വേദപുസ്തകം</b><small>Malayalam–English Study Bible</small></div></div>
     </div>
   </div>
 
@@ -242,20 +274,85 @@
             <img src="assets/bible-ml.png" alt="Malayalam Bible app icon: an open book with aleph and alpha in green">
             <div>
               <h3 lang="ml">വേദപുസ്തകം</h3>
-              <div class="chips"><span class="chip">Android</span><span class="chip">Malayalam</span></div>
+              <div class="chips"><span class="chip">Android</span><span class="chip soon">Coming soon on iPhone</span><span class="chip">Malayalam</span></div>
             </div>
           </div>
-          <p>The same app in Malayalam, with the 1910 Sathyavedapusthakam alongside the King James Version. Each Malayalam word is linked to the Hebrew or Greek behind it, so you can tap a word and study it in Malayalam.</p>
+          <p>A Malayalam–English study Bible, with three Malayalam translations, four English ones, and the Hebrew and Greek texts. Each Malayalam word is linked to the Hebrew or Greek behind it, so you can tap a word and study it in Malayalam.</p>
           <ul>
-            <li>Sathyavedapusthakam 1910, the King James Version, and the Hebrew and Greek interlinear</li>
+            <li>Sathyavedapusthakam 1910, the Indian Revised Version (IRV) and the OMCV</li>
+            <li>King James, Berean Standard, Literal Standard and American Standard in English</li>
+            <li>One verse in all seven translations, side by side</li>
             <li>The Malayalam word shown next to the original, with its English meaning</li>
-            <li>References accept everyday spellings and Catholic book names</li>
-            <li>Search finds the 1910 text using modern Malayalam spelling</li>
+            <li>Search in Malayalam or English, using modern Malayalam spelling</li>
+            <li>Share a verse as a picture card, with an optional message</li>
             <li>Interface in Malayalam, with English available</li>
-            <li>Can be installed alongside the English app</li>
           </ul>
+          <a class="more" href="#malayalam">Take a closer look</a>
         </article>
       </div>
+    </div>
+  </section>
+
+  <section id="malayalam">
+    <div class="wrap">
+      <div class="tour-head">
+        <div class="section-head">
+          <div class="eyebrow">A closer look</div>
+          <h2>Inside <span lang="ml">വേദപുസ്തകം</span></h2>
+          <p>Seven screens from the Malayalam app, coming soon on iPhone.</p>
+        </div>
+        <div class="tour-nav">
+          <button type="button" data-dir="-1" aria-label="Previous screens" aria-controls="tour">&#8592;</button>
+          <button type="button" data-dir="1" aria-label="Next screens" aria-controls="tour">&#8594;</button>
+        </div>
+      </div>
+      <figure class="tour-banner">
+        <img src="assets/malayalam/banner.webp" width="1600" height="686" loading="lazy" decoding="async" alt="വേദപുസ്തകം, Malayalam–English Study Bible: three Malayalam and four English translations, with the Hebrew and Greek texts. Two phones show John 1 and the translation comparison.">
+      </figure>
+      <ol class="tour" id="tour" tabindex="0" aria-label="Screens from വേദപുസ്തകം">
+          <li>
+            <figure>
+              <img src="assets/malayalam/translations.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1 in the Sathyavedapusthakam 1910, open in the reader">
+              <figcaption><h3>Three Malayalam translations</h3><p>Sathyavedapusthakam 1910, IRV and OMCV, with four English translations</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/compare.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:2 shown in three Malayalam and four English translations">
+              <figcaption><h3>Comparing translations</h3><p>One verse in all seven translations</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" loading="lazy" decoding="async" alt="The Malayalam word for beginning selected, showing the Greek word archē and its meaning">
+              <figcaption><h3>Hebrew and Greek</h3><p>Selecting a word shows the word it translates</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/search.webp" width="600" height="1296" loading="lazy" decoding="async" alt="A search for the Malayalam word for love, finding 58 verses">
+              <figcaption><h3>Search</h3><p>In Malayalam or English, without an internet connection</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/verse-options.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:2–3 selected, with copy, share, highlight, bookmark and note buttons">
+              <figcaption><h3>Verse options</h3><p>Selecting a verse number: copy, share, highlight, bookmark or note</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/verse-card.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:3 made into a picture card, with occasion and design choices">
+              <figcaption><h3>A verse as an image</h3><p>For sharing, with an optional message</p></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="assets/malayalam/notebook.webp" width="600" height="1296" loading="lazy" decoding="async" alt="A notebook page collecting three Malayalam verses about love">
+              <figcaption><h3>Notebook</h3><p>Typed or handwritten pages, stored on the device</p></figcaption>
+            </figure>
+          </li>
+      </ol>
     </div>
   </section>
 
@@ -270,7 +367,7 @@
       <div class="tenets">
         <div class="tenet"><b>Works offline</b><span>Your notes and highlights are saved on your phone and included in its regular backup.</span></div>
         <div class="tenet"><b>Private</b><span>We do not collect any data from our apps. Our <a href="bible/privacy">privacy policy</a> explains the details.</span></div>
-        <div class="tenet"><b>Trusted sources</b><span>The apps include the complete King James Version, World English Bible and 1910 Sathyavedapusthakam. The Hebrew and Greek text comes from the Leningrad Codex and STEPBible. Each app lists its sources in its settings.</span></div>
+        <div class="tenet"><b>Trusted sources</b><span>The apps include the complete King James Version, World English Bible and 1910 Sathyavedapusthakam, and the Malayalam app adds the IRV, the OMCV and three more English translations. The Hebrew and Greek text comes from the Leningrad Codex and STEPBible. Each app lists its sources in its settings.</span></div>
       </div>
     </div>
   </section>
@@ -283,6 +380,34 @@
     <span><a href="bible/privacy">Privacy policy</a></span>
   </div>
 </footer>
+
+<script>
+  // Arrow buttons for the screen tour; the row also scrolls by swipe, trackpad or keyboard.
+  (function () {
+    var row = document.getElementById("tour");
+    if (!row) return;
+    var buttons = document.querySelectorAll(".tour-nav button");
+    var smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function step() {
+      var item = row.querySelector("li");
+      var gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+      return item ? item.getBoundingClientRect().width + gap : row.clientWidth;
+    }
+    function update() {
+      var max = row.scrollWidth - row.clientWidth - 2;
+      buttons[0].disabled = row.scrollLeft <= 2;
+      buttons[1].disabled = row.scrollLeft >= max;
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        row.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: smooth ? "smooth" : "auto" });
+      });
+    });
+    row.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+</script>
 
 </body>
 </html>
