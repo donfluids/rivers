@@ -123,7 +123,9 @@
   .btn-ghost:hover { border-color: var(--river-2); text-decoration: none; }
   :root[data-theme="dark"] .btn-primary, :root:not([data-theme="light"]) .btn-primary { }
   .hero-art { position: relative; height: 500px; }
-  .phone { position: absolute; width: 232px; height: auto; filter: drop-shadow(0 22px 30px rgba(60,40,15,.22)); }
+  .phone { position: absolute; width: 232px; aspect-ratio: 600 / 1296; filter: drop-shadow(0 22px 30px rgba(60,40,15,.22)); }
+  .phone img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease; }
+  .phone img.on { opacity: 1; }
   .phone.front { left: 6%; top: 0; transform: rotate(-4deg); }
   .phone.back { right: 2%; top: 34px; transform: rotate(5deg); }
   @media (max-width: 860px) {
@@ -274,8 +276,8 @@
   /* Motion: only for visitors who have not asked their device to reduce it */
   @media (prefers-reduced-motion: no-preference) {
     @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @keyframes float-front { 0%, 100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-3.2deg) translateY(-10px); } }
-    @keyframes float-back { 0%, 100% { transform: rotate(5deg) translateY(0); } 50% { transform: rotate(5.8deg) translateY(8px); } }
+    @keyframes float-front { 0%, 100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-2.6deg) translateY(-18px); } }
+    @keyframes float-back { 0%, 100% { transform: rotate(5deg) translateY(0); } 50% { transform: rotate(6.4deg) translateY(14px); } }
     @keyframes breathe { 0%, 100% { opacity: .78; } 50% { opacity: 1; } }
     .hero > div:first-child > * { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
     .hero > div:first-child > :nth-child(2) { animation-delay: .08s; }
@@ -285,7 +287,23 @@
     .phone.front { animation: float-front 7s ease-in-out infinite; }
     .phone.back { animation: float-back 9s ease-in-out infinite; }
     .hero-band::before { animation: breathe 8s ease-in-out infinite; }
-    html.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    html.js .reveal { opacity: 0; transform: translateY(40px) scale(.975); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+    html.js .feature li { opacity: 0; transform: translateX(18px); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+    html.js .feature.in li { opacity: 1; transform: none; }
+    html.js .feature.in li:nth-child(1) { transition-delay: .25s; } html.js .feature.in li:nth-child(2) { transition-delay: .33s; }
+    html.js .feature.in li:nth-child(3) { transition-delay: .41s; } html.js .feature.in li:nth-child(4) { transition-delay: .49s; }
+    html.js .feature.in li:nth-child(5) { transition-delay: .57s; } html.js .feature.in li:nth-child(6) { transition-delay: .65s; }
+    html.js .feature.in li:nth-child(7) { transition-delay: .73s; }
+    html.js .tour.reveal li { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    html.js .tour.reveal.in li { opacity: 1; transform: none; }
+    html.js .tour.in li:nth-child(2) { transition-delay: .1s; } html.js .tour.in li:nth-child(3) { transition-delay: .2s; }
+    html.js .tour.in li:nth-child(4) { transition-delay: .3s; } html.js .tour.in li:nth-child(5) { transition-delay: .4s; }
+    .hero-art { translate: 0 calc(var(--sy, 0) * -0.10px); }
+    .hills path:nth-child(1) { translate: 0 calc(var(--sy, 0) * 0.07px); }
+    .hills path:nth-child(2) { translate: 0 calc(var(--sy, 0) * 0.035px); }
+    .hero-band::before { translate: 0 calc(var(--sy, 0) * 0.18px); }
+    .btn, .play-badge { transition: transform .2s ease; }
+    .btn:hover, .play-badge:hover { transform: translateY(-2px); }
     html.js .reveal.in { opacity: 1; transform: none; }
     html.js .soon-grid .reveal:nth-child(2), html.js .tenets .reveal:nth-child(2) { transition-delay: .1s; }
     html.js .soon-grid .reveal:nth-child(3), html.js .tenets .reveal:nth-child(3) { transition-delay: .2s; }
@@ -327,8 +345,8 @@
       </div>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <img class="phone back" src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" alt="">
-      <img class="phone front" src="assets/malayalam/verse-card.webp" width="600" height="1296" alt="">
+      <div class="phone back" data-screens="hebrew-greek,compare,verse-options"><img class="on" src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" alt=""></div>
+      <div class="phone front" data-screens="verse-card,translations,search,notebook"><img class="on" src="assets/malayalam/verse-card.webp" width="600" height="1296" alt=""></div>
     </div>
   </div>
     <svg class="hills" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
@@ -532,6 +550,37 @@
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
     }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
     items.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
+  })();
+</script>
+<script>
+  // Hero: the two phones cycle through the app's screens, and the scene shifts gently with scrolling.
+  (function () {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var band = document.querySelector(".hero-band");
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () { band.style.setProperty("--sy", Math.min(window.scrollY, 1200)); ticking = false; });
+    }, { passive: true });
+    var phones = [].slice.call(document.querySelectorAll(".phone[data-screens]"));
+    function start() {
+      phones.forEach(function (ph) {
+        ph.dataset.screens.split(",").slice(1).forEach(function (name) {
+          var img = new Image(); img.alt = ""; img.width = 600; img.height = 1296;
+          img.src = "assets/malayalam/" + name + ".webp"; ph.appendChild(img);
+        });
+        ph.dataset.i = 0;
+      });
+      var turn = 0;
+      setInterval(function () {
+        if (document.hidden) return;
+        var ph = phones[turn++ % phones.length], imgs = ph.querySelectorAll("img");
+        var next = (Number(ph.dataset.i) + 1) % imgs.length;
+        if (!imgs[next].complete) return;
+        imgs[ph.dataset.i].classList.remove("on"); imgs[next].classList.add("on"); ph.dataset.i = next;
+      }, 2600);
+    }
+    if (document.readyState === "complete") start(); else window.addEventListener("load", start);
   })();
 </script>
 <script>
