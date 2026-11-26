@@ -182,6 +182,21 @@
     .tour { grid-auto-columns: 72%; gap: 20px; }
   }
   @media (max-width: 640px) { .apps { grid-template-columns: 1fr; } .card { padding: 22px; } }
+  .apps.single { grid-template-columns: 1fr; max-width: 760px; }
+
+  /* Coming soon */
+  .soon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .soon-grid .card { box-shadow: none; }
+  .soon-grid .card-top img { filter: saturate(.85); }
+  .card .join {
+    margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border-radius: 999px; border: 1px solid var(--river); color: var(--river);
+    font-weight: 600; font-size: .92rem;
+  }
+  .card .join:hover { background: var(--river); color: var(--paper); text-decoration: none; }
+  .soon-note { color: var(--ink-2); font-size: .95rem; margin-top: 26px; max-width: 62ch; }
+  @media (max-width: 960px) { .soon-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .soon-grid { grid-template-columns: 1fr; } }
 
   /* About */
   .about { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
@@ -209,6 +224,7 @@
     <nav aria-label="Sections">
       <ul>
         <li><a href="#apps">Apps</a></li>
+        <li><a href="#coming">Coming soon</a></li>
         <li><a href="#malayalam">Tour</a></li>
         <li><a href="#about">About</a></li>
       </ul>
@@ -221,9 +237,9 @@
     <div>
       <div class="eyebrow">Rivers Research LLC</div>
       <h1>Apps for reading and studying the Bible.</h1>
-      <p class="lede" style="margin-top:20px">We make a Bible app in English and in Malayalam that shows the Hebrew and Greek under every word. Both editions work offline.</p>
+      <p class="lede" style="margin-top:20px">Our Malayalam–English study Bible, <span lang="ml">വേദപുസ്തകം</span>, shows the Hebrew and Greek under every word and works offline. English, Tamil and four-language editions are coming soon.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="#apps">See the apps</a>
+        <a class="btn btn-primary" href="#apps">See the app</a>
         <a class="btn btn-ghost" href="#about">About Rivers Research</a>
       </div>
     </div>
@@ -236,8 +252,8 @@
           <path d="M-20 270 C 80 230, 140 320, 240 280 S 400 250, 440 300"/>
         </g>
       </svg>
-      <div class="tile t1"><img src="assets/bible-en.png" alt=""><div><b>Bible</b><small>KJV, WEB, Hebrew and Greek</small></div></div>
-      <div class="tile t2"><img src="assets/bible-ml.png" alt=""><div><b>വേദപുസ്തകം</b><small>Malayalam–English Study Bible</small></div></div>
+      <div class="tile t1"><img src="assets/bible-ml.png" alt=""><div><b>വേദപുസ്തകം</b><small>Malayalam–English Study Bible</small></div></div>
+      <div class="tile t2"><img src="assets/bible-ta.png" alt=""><div><b lang="ta">வேதாகமம்</b><small>Tamil, coming soon</small></div></div>
     </div>
   </div>
 
@@ -245,30 +261,11 @@
     <div class="wrap">
       <div class="section-head">
         <div class="eyebrow">Apps</div>
-        <h2>Our apps</h2>
+        <h2>Available now</h2>
         <p>You do not need an account to use them, and they show no ads. Once installed, they work without an internet connection.</p>
       </div>
 
-      <div class="apps">
-        <article class="card">
-          <div class="card-top">
-            <img src="assets/bible-en.png" alt="Bible app icon: a lamp flame above an open book">
-            <div>
-              <h3>Bible</h3>
-              <div class="chips"><span class="chip">Android</span></div>
-            </div>
-          </div>
-          <p>The King James Version and the World English Bible, with the Hebrew and Greek underneath every word. Tap an underlined word to see the original, its grammar in plain English, a short meaning, the pronunciation and Strong's dictionary entry. You can also list every verse that uses the same Hebrew or Greek word.</p>
-          <ul>
-            <li>Hebrew and Greek text of every verse, word by word, with transliteration and gloss</li>
-            <li>Highlights in four colors, notes and bookmarks, including passages that span several verses</li>
-            <li>Search the text or the dictionary, or type a reference such as John 3:16 or a Strong's number such as G26</li>
-            <li>Poetry keeps its line breaks, and footnotes and cross references open with a tap</li>
-            <li>Light, sepia and dark themes, with adjustable text size</li>
-            <li>The full text and dictionary are included, so it works offline</li>
-          </ul>
-        </article>
-
+      <div class="apps single">
         <article class="card">
           <div class="card-top">
             <img src="assets/bible-ml.png" alt="വേദപുസ്തകം app icon: a lamp flame above an open book">
@@ -290,6 +287,68 @@
           <a class="more" href="#malayalam">Take a closer look</a>
         </article>
       </div>
+    </div>
+  </section>
+
+  <section id="coming">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Coming soon</div>
+        <h2>More editions on the way</h2>
+        <p>These apps are nearly ready. If you would like to try one before it is released, write to us and we will add you as a tester.</p>
+      </div>
+      <div class="soon-grid">
+        <article class="card">
+          <div class="card-top">
+            <img src="assets/bible-en.png" alt="Bible app icon: a lamp flame above an open book">
+            <div>
+              <h3>Bible</h3>
+              <div class="chips"><span class="chip soon">Android</span><span class="chip soon">iPhone</span><span class="chip">English</span></div>
+            </div>
+          </div>
+          <p>An English study Bible with the Hebrew and Greek underneath every word. Tap a word to see the original, its grammar in plain English, its meaning and Strong's dictionary entry.</p>
+          <ul>
+            <li>King James, Berean Standard, World English, Literal Standard and American Standard</li>
+            <li>Hebrew and Greek text of every verse, word by word</li>
+            <li>Highlights, notes, bookmarks and a notebook</li>
+          </ul>
+          <a class="join" href="#coming" data-app="Bible (English)" data-platforms="Android or iPhone">Join the testers</a>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <img src="assets/bible-ta.png" alt="வேதாகமம் app icon: a lamp flame above an open book">
+            <div>
+              <h3 lang="ta">வேதாகமம்</h3>
+              <div class="chips"><span class="chip soon">Android</span><span class="chip soon">iPhone</span><span class="chip">Tamil</span></div>
+            </div>
+          </div>
+          <p>A Tamil–English study Bible: the Tamil Indian Revised Version with four English translations and the Hebrew and Greek texts.</p>
+          <ul>
+            <li>Tamil Indian Revised Version</li>
+            <li>King James, Berean Standard, Literal Standard and American Standard</li>
+            <li>Interface in Tamil, with English available</li>
+          </ul>
+          <a class="join" href="#coming" data-app="வேதாகமம் (Tamil)" data-platforms="Android or iPhone">Join the testers</a>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <img src="assets/bible-india.png" alt="Bibles app icon: a lamp flame above an open book">
+            <div>
+              <h3>Bibles</h3>
+              <div class="chips"><span class="chip soon">Android</span><span class="chip">English, Malayalam, Tamil, Hindi</span></div>
+            </div>
+          </div>
+          <p>Eight Bibles in four languages in one app. On first opening it asks which language to read in, and opens that Bible with its menus in the same language.</p>
+          <ul>
+            <li>Five English translations</li>
+            <li>Malayalam Sathyavedapusthakam 1910</li>
+            <li>Tamil and Hindi Indian Revised Version</li>
+            <li>Hebrew and Greek interlinear</li>
+          </ul>
+          <a class="join" href="#coming" data-app="Bibles (four languages)" data-platforms="Android">Join the testers</a>
+        </article>
+      </div>
+      <p class="soon-note">Testing is free. Tell us whether you use Android or iPhone, and we will send you an invitation when the test version is ready.</p>
     </div>
   </section>
 
@@ -382,6 +441,16 @@
 </footer>
 
 <script>
+  // Tester links open a note in the visitor's mail app. The address is assembled here, so it never appears as text on the page.
+  (function () {
+    var to = "dond" + "@" + "riversresearch.org";
+    document.querySelectorAll("a.join").forEach(function (a) {
+      var subject = "Tester: " + a.dataset.app;
+      var body = "I would like to test " + a.dataset.app + ".\n\nMy phone (" + a.dataset.platforms + "): \n";
+      a.href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    });
+  })();
+
   // Arrow buttons for the screen tour; the row also scrolls by swipe, trackpad or keyboard.
   (function () {
     var row = document.getElementById("tour");
