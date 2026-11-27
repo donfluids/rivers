@@ -9,7 +9,7 @@
 <meta name="description" content="Rivers Research performs numerical simulation of turbulence, blast and detonation, shock and multiphase flow, free-surface flow, impact and porous media, with documented validation against published references.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Rivers Research">
-<meta property="og:description" content="Numerical simulation of fluid, shock, blast and impact problems, with documented validation.">
+<meta property="og:description" content="Numerical simulation of fluids, shock waves, blast and impact, checked against published experiments.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://riversresearch.org/">
 <meta property="og:image" content="https://riversresearch.org/assets/sim/share.jpg">
@@ -99,7 +99,8 @@
   .case .media { background: var(--panel); aspect-ratio: 16 / 9; border-bottom: 1px solid var(--line); }
   .case .media img, .case .media video { width: 100%; height: 100%; object-fit: cover; }
   .case .body { padding: 20px 22px 22px; display: grid; gap: 10px; }
-  .case .result { font: 400 .86rem/1.55 var(--mono); color: var(--fg-2); }
+  .case .plain { color: var(--fg-2); font-size: .97rem; }
+  .case .result { font: 400 .8rem/1.55 var(--mono); color: var(--muted); }
   .case .links { display: flex; gap: 18px; flex-wrap: wrap; font-size: .9rem; font-weight: 500; margin-top: 2px; }
   .case .links a, .app .links a:not(.btn) { display: inline-block; padding: 6px 0; }
   .case.wide { grid-column: 1 / -1; }
@@ -181,8 +182,8 @@
     <div class="wrap">
       <div class="hero-inner">
         <div class="label">Computational mechanics</div>
-        <h1>Numerical simulation of fluid, shock, blast and impact problems, with documented validation.</h1>
-        <p class="lede">Rivers Research performs direct and high-resolution numerical simulation. Each configuration is first computed for a published experiment or reference solution, and the deviation is reported with the result.</p>
+        <h1>Numerical simulation of fluids, shock waves, blast and impact.</h1>
+        <p class="lede">Rivers Research computes how fluids and structures behave under conditions that are difficult or costly to test. Each method is first checked against a published experiment, and the agreement is reported with the result.</p>
         <div class="actions">
           <a class="btn btn-primary" href="#services" data-mail="Simulation enquiry">Send an enquiry</a>
           <a class="btn btn-ghost" href="#showcase">Validation cases</a>
@@ -199,10 +200,10 @@
         <h2>Problem classes</h2>
       </div>
       <div class="caps">
-        <div class="cap"><h3>Turbulence</h3><p>Direct numerical simulation of forced isotropic turbulence; Lagrangian tracer statistics; passive-scalar mixing.</p></div>
-        <div class="cap"><h3>Blast and detonation</h3><p>Free-field, confined and urban blast loading; cellular detonation with detailed chemical kinetics.</p></div>
-        <div class="cap"><h3>Shock and multiphase flow</h3><p>Shock–interface interaction; shock-induced bubble collapse near rigid boundaries.</p></div>
-        <div class="cap"><h3>Free-surface flow, impact and porous media</h3><p>Wave-impact loads on structures; high-strain-rate plastic deformation; pore-scale flow and permeability.</p></div>
+        <div class="cap"><h3>Turbulence</h3><p>Turbulent flow resolved directly, including the transport and mixing of particles and scalars.</p></div>
+        <div class="cap"><h3>Blast and detonation</h3><p>Blast loading in the open, in enclosed rooms and between buildings, and the structure of detonation fronts.</p></div>
+        <div class="cap"><h3>Shock and multiphase flow</h3><p>Shock waves interacting with gas and liquid interfaces, including bubble collapse near walls.</p></div>
+        <div class="cap"><h3>Free-surface flow, impact and porous media</h3><p>Wave impact on structures, deformation of metals at high rates, and flow through porous materials.</p></div>
       </div>
     </div>
   </section>
@@ -212,14 +213,15 @@
       <div class="head">
         <div class="label">Cases</div>
         <h2>Validation cases</h2>
-        <p>Eleven cases computed on a 192-core AMD EPYC workstation. Each entry states the principal comparison with the reference; the linked figure gives the complete comparison.</p>
+        <p>Eleven cases, each compared with a published experiment or reference solution. The figure linked from each case gives the full comparison. All were computed on a 192-core workstation.</p>
       </div>
 
       <div class="cases">
         <article class="case wide">
           <div class="media"><video controls playsinline preload="none" poster="assets/sim/dam-break.webp" src="assets/sim/dam-break.mp4" aria-label="Video: water column collapsing in a tank and striking a box"></video></div>
           <div class="body">
-            <h3>3D dam break impacting an obstacle: the MARIN experiment (SPHERIC Test 2)</h3>
+            <h3>Dam break against an obstacle</h3>
+            <p class="plain">A column of water is released in a tank and strikes a box. The computed forces on the box are compared with the MARIN laboratory measurements.</p>
             <p class="result">Mean loads on the box within −2.7 to +6.4 % of the measured MARIN data · impact peak +10 %</p>
             <div class="links"><a href="assets/sim/dam-break-validation.webp">Validation figure</a></div>
           </div>
@@ -228,7 +230,8 @@
         <article class="case">
           <div class="media"><img src="assets/sim/turbulence.webp" width="1280" height="598" loading="lazy" alt="Vortex filaments in a cube of isotropic turbulence"></div>
           <div class="body">
-            <h3>Forced isotropic turbulence at Re_λ ≈ 240: direct numerical simulation on a 512³ grid</h3>
+            <h3>Isotropic turbulence</h3>
+            <p class="plain">The fine vortex structure of a turbulent flow, resolved directly on a 512³ grid without a turbulence model.</p>
             <p class="result">512³ DNS, Re_λ ≈ 240 · Kolmogorov constant 1.72 · derivative skewness −0.55 · k_max·η = 1.17</p>
             <div class="links"><a href="assets/sim/turbulence-validation.webp">Validation figure</a></div>
           </div>
@@ -237,7 +240,8 @@
         <article class="case">
           <div class="media"><img src="assets/sim/tracers.webp" width="1280" height="598" loading="lazy" alt="Tracer particle clouds inside a cube coloured by a mixing scalar"></div>
           <div class="body">
-            <h3>Lagrangian tracer dispersion and passive-scalar mixing in isotropic turbulence (Re_λ ≈ 155, 256³ DNS)</h3>
+            <h3>Particle dispersion and mixing in turbulence</h3>
+            <p class="plain">Tracer particles are followed through a turbulent flow to measure how quickly they spread, and the result is compared with Taylor's classical theory.</p>
             <p class="result">Tracer dispersion matches Taylor's ballistic limit to 0.2 % · Lagrangian/Eulerian variance 0.991</p>
             <div class="links"><a href="assets/sim/tracers-validation.webp">Validation figure</a></div>
           </div>
@@ -246,7 +250,8 @@
         <article class="case">
           <div class="media"><img src="assets/sim/detonation.webp" width="1280" height="598" loading="lazy" alt="Detonation front with its cellular soot-foil pattern below"></div>
           <div class="body">
-            <h3>Cellular detonation in 2 H₂ + O₂ + 7 Ar: 2D simulation with detailed chemistry and a numerical soot foil</h3>
+            <h3>Cellular detonation in hydrogen, oxygen and argon</h3>
+            <p class="plain">A detonation front develops the diamond-shaped cell pattern that soot foils record in laboratory experiments.</p>
             <p class="result">Front speed +0.11 % from Chapman–Jouguet · cell width 20 mm vs 23.7–27.3 mm measured (Strehlow 1967)</p>
             <div class="links"><a href="assets/sim/detonation-validation.webp">Validation figure</a></div>
           </div>
@@ -255,7 +260,8 @@
         <article class="case">
           <div class="media"><img src="assets/sim/blast-room.webp" width="1280" height="598" loading="lazy" alt="Shock fronts reflecting inside a closed room"></div>
           <div class="body">
-            <h3>TNT blast in a closed room: 3D shock reflections, wall loads and gas pressure</h3>
+            <h3>Explosion in a closed room</h3>
+            <p class="plain">Shock waves from a charge reflect between the walls of a room. The loads on the walls and the final gas pressure are computed.</p>
             <p class="result">Incident shock within ±6 % of Kingery–Bulmash at Z ≥ 1 · mass conserved exactly, energy to 3×10⁻⁴</p>
             <div class="links"><a href="assets/sim/blast-room-validation.webp">Validation figure</a></div>
           </div>
@@ -264,7 +270,8 @@
         <article class="case">
           <div class="media"><img src="assets/sim/surface-burst.webp" width="1280" height="598" loading="lazy" alt="Hemispherical blast wave expanding from a surface charge"></div>
           <div class="body">
-            <h3>2 kg TNT surface burst: blast wave with adaptive mesh refinement, validated against Kingery–Bulmash</h3>
+            <h3>Surface burst of a 2 kg charge</h3>
+            <p class="plain">The blast wave from a charge on the ground, compared with the standard Kingery–Bulmash blast curves.</p>
             <p class="result">Peak overpressure −5 to −8 % from Kingery–Bulmash beyond Z = 1.5 · arrival time within 1–11 %</p>
             <div class="links"><a href="assets/sim/surface-burst-validation.webp">Validation figure</a></div>
           </div>
@@ -273,7 +280,8 @@
         <article class="case">
           <div class="media"><img src="assets/sim/shock-bubble.webp" width="1280" height="598" loading="lazy" alt="Helium cylinder rolled up into two vortices after a shock has passed"></div>
           <div class="body">
-            <h3>Shock–helium cylinder interaction: the Haas &amp; Sturtevant experiment, Mach 1.22</h3>
+            <h3>Shock wave passing a helium cylinder</h3>
+            <p class="plain">A shock wave deforms a column of helium into a pair of vortices, as in the Haas &amp; Sturtevant experiment.</p>
             <p class="result">All 6 wave and interface speeds within the ±11 % uncertainty of Haas &amp; Sturtevant (1987)</p>
             <div class="links"><a href="assets/sim/shock-bubble-validation.webp">Validation figure</a></div>
           </div>
@@ -282,7 +290,8 @@
         <article class="case">
           <div class="media"><img src="assets/sim/bubble-collapse.webp" width="1280" height="598" loading="lazy" alt="Air bubble collapsing next to a rigid wall under a shock"></div>
           <div class="body">
-            <h3>Shock-induced collapse of an air bubble near a rigid wall</h3>
+            <h3>Collapse of an air bubble near a wall</h3>
+            <p class="plain">A shock wave in water collapses an air bubble beside a rigid wall, a mechanism of cavitation damage.</p>
             <p class="result">Collapse time within 0.5 % of Rayleigh, grid-converged · peak wall pressure not converged (stated)</p>
             <div class="links"><a href="assets/sim/bubble-collapse-validation.webp">Validation figure</a></div>
           </div>
@@ -291,7 +300,8 @@
         <article class="case">
           <div class="media"><video controls playsinline preload="none" poster="assets/sim/taylor.webp" src="assets/sim/taylor.mp4" aria-label="Video: copper rod mushrooming on a steel anvil"></video></div>
           <div class="body">
-            <h3>Taylor impact test: OFHC copper rod at 190 m/s</h3>
+            <h3>Taylor impact of a copper rod</h3>
+            <p class="plain">A copper rod strikes a rigid anvil at 190 m/s and deforms plastically. The final shape is compared with published results.</p>
             <p class="result">Final length within 0.4–0.9 % of Johnson &amp; Cook's computation · energy balance closes to 0.07 %</p>
             <div class="links"><a href="assets/sim/taylor-validation.webp">Validation figure</a></div>
           </div>
@@ -300,7 +310,8 @@
         <article class="case">
           <div class="media"><img src="assets/sim/porous.webp" width="1280" height="598" loading="lazy" alt="Flow speed between randomly packed disks in a porous medium"></div>
           <div class="body">
-            <h3>Flow through a random porous medium: permeability from the pore scale</h3>
+            <h3>Flow through a porous medium</h3>
+            <p class="plain">Fluid moves between randomly packed grains, and the permeability of the material is computed from the resolved flow.</p>
             <p class="result">Square-array permeability within 0.004–0.15 % of Barnett et al. (2016) · second-order convergence</p>
             <div class="links"><a href="assets/sim/porous-validation.webp">Validation figure</a></div>
           </div>
@@ -309,7 +320,8 @@
         <article class="case wide">
           <div class="media"><video controls playsinline preload="none" poster="assets/sim/urban-blast.webp" src="assets/sim/urban-blast.mp4" aria-label="Video: blast wave spreading through a city street intersection"></video></div>
           <div class="body">
-            <h3>100 kg TNT at a city street intersection: facade loads, shielding and channelling, checked against Kingery–Bulmash</h3>
+            <h3>Blast in a city street intersection</h3>
+            <p class="plain">A 100 kg charge at street level. The loads on the building facades are computed, with the shielding and channelling caused by the streets.</p>
             <p class="result">Free field → Kingery–Bulmash with mesh refinement (within 4 % at 5 cm) · facade impulse within 5–7 % of DDESB TP-20</p>
             <div class="links"><a href="assets/sim/urban-blast-validation.webp">Validation figure</a><a href="assets/sim/urban-design-validation.webp">Protective-design quantities</a></div>
           </div>
@@ -325,9 +337,9 @@
         <h2>Validation and reporting procedure</h2>
       </div>
       <div class="method">
-        <div class="step"><h3>Reference case</h3><p>The numerical setup is first applied to an experiment or reference solution from the literature, for example the MARIN dam break, Haas &amp; Sturtevant (1987) or the Kingery–Bulmash relations.</p></div>
-        <div class="step"><h3>Grid convergence</h3><p>Each case is computed at two or more resolutions. Quantities that have not converged are identified as such.</p></div>
-        <div class="step"><h3>Reported deviation</h3><p>Each quantity is reported with its deviation from the reference, including cases of weaker agreement.</p></div>
+        <div class="step"><h3>Reference case</h3><p>A method is first applied to a problem with a known answer from the literature.</p></div>
+        <div class="step"><h3>Grid convergence</h3><p>Each case is computed at more than one resolution, and quantities that have not converged are identified.</p></div>
+        <div class="step"><h3>Reported deviation</h3><p>Every result is stated with its difference from the reference, including where the agreement is weaker.</p></div>
       </div>
       <div class="codes" aria-label="Solvers used">
         <span class="lead">Solvers used</span>
@@ -353,7 +365,7 @@
       </div>
       <div class="contact">
         <h3>Enquiries</h3>
-        <p>State the quantity required and the data available. Replies are sent by email.</p>
+        <p>State the question to be answered and the data available. Replies are sent by email.</p>
         <a class="btn btn-primary" href="#services" data-mail="Simulation enquiry">Send an enquiry</a>
       </div>
     </div>
