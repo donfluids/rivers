@@ -1,6 +1,10 @@
 # Rivers Research LLC website
 
-A static site: `index.html`, the Bible apps' privacy policy at `bible/privacy.html` (served as `/bible/privacy`), and the images in `assets/`. `privacy.html` only redirects to the policy. No build step and no dependencies beyond two Google Fonts.
+A static site with no build step.
+
+- `index.html`: the engineering home page, with the simulation showcase. Its images, validation figures and videos are in `assets/sim/`.
+- `bible/index.html`: the Bible app page, served as `/bible/`.
+- `bible/privacy.html`: the Bible apps' privacy policy, served as `/bible/privacy`. `privacy.html` only redirects to it.
 
 ## Updating content
 

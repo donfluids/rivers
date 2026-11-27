@@ -3,315 +3,159 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'none'; script-src 'unsafe-inline'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'none'; script-src 'unsafe-inline'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Rivers Research</title>
-<meta name="description" content="Rivers Research makes Bible apps in English and Malayalam, with the Hebrew and Greek under every word.">
+<meta name="description" content="Rivers Research runs validated simulations of turbulence, blast and detonation, shocks and multiphase flow, free-surface flow, impact and porous media.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Rivers Research">
-<meta property="og:description" content="Bible apps in English and Malayalam, with the Hebrew and Greek under every word.">
+<meta property="og:description" content="Validated simulation of fluids, shocks, blast and impact.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://riversresearch.org/">
-<meta property="og:image" content="https://riversresearch.org/assets/share.jpg">
+<meta property="og:image" content="https://riversresearch.org/assets/sim/share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="വേദപുസ്തകം, Malayalam–English Study Bible">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  /* Layout: a dark technical page. The simulation images are rendered on near-black navy, so the page shares
+     their ground and the figures sit in it without frames. One column of sections, cards on a two-column grid. */
   :root {
-    --paper: #F7F3EC;
-    --surface: #FFFDF9;
-    --ink: #1B2430;
-    --ink-2: #4B5563;
-    --muted: #6B7280;
-    --line: #E3DCD0;
-    --river: #173A4F;
-    --river-2: #24516B;
-    --teal: #7A4E1D;
-    --teal-soft: #F1E6D2;
-    --gold: #B8893A;
-    --shadow: 0 1px 2px rgba(27,36,48,.05), 0 12px 32px -16px rgba(27,36,48,.18);
-    --radius: 18px;
-    --serif: "Fraunces", Georgia, "Times New Roman", serif;
-    --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: dark;
+    --bg: #0B101D;
+    --panel: #0E1221;
+    --raised: #141A2C;
+    --line: #232B42;
+    --fg: #E6ECF6;
+    --fg-2: #AEB9CC;
+    --muted: #7C889E;
+    --accent: #56C1F0;
+    --accent-ink: #06202E;
+    --warm: #F0A24B;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #111820;
-      --surface: #182230;
-      --ink: #E9E4DA;
-      --ink-2: #C3BDB1;
-      --muted: #8E98A6;
-      --line: #273442;
-      --river: #DCE7EE;
-      --river-2: #B9CCD9;
-      --teal: #E2C08A;
-      --teal-soft: #3A2F20;
-      --gold: #D7AC63;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6);
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper: #111820;
-    --surface: #182230;
-    --ink: #E9E4DA;
-    --ink-2: #C3BDB1;
-    --muted: #8E98A6;
-    --line: #273442;
-    --river: #DCE7EE;
-    --river-2: #B9CCD9;
-    --teal: #E2C08A;
-    --teal-soft: #3A2F20;
-    --gold: #D7AC63;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6);
-  }
-
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 17px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--teal); text-decoration: none; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  img { max-width: 100%; display: block; }
-  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.15; margin: 0; color: var(--river); letter-spacing: -0.01em; }
-  h1, h2 { text-wrap: balance; }
-  h1 { font-size: clamp(2.1rem, 5.2vw, 3.6rem); }
-  h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
-  h3 { font-size: 1.45rem; }
-  p { margin: 0 0 1em; }
-  .wrap { width: min(1100px, 100% - 32px); margin-inline: auto; }
-  .eyebrow { font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
-  .lede { font-size: 1.15rem; color: var(--ink-2); max-width: 60ch; }
+  img, video { max-width: 100%; display: block; }
+  h1, h2, h3 { margin: 0; font-weight: 600; line-height: 1.15; letter-spacing: -0.015em; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+  h3 { font-size: 1.08rem; line-height: 1.3; letter-spacing: -0.005em; }
+  p { margin: 0; }
+  .wrap { width: min(1180px, 100% - 32px); margin-inline: auto; }
+  .label { font: 500 .78rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
-  /* Header */
-  header {
-    position: sticky; top: 0; z-index: 10;
-    background: var(--paper);
-    background: color-mix(in srgb, var(--paper) 85%, transparent);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .brand { display: flex; align-items: center; gap: 12px; color: var(--river); font-family: var(--serif); font-size: 1.2rem; font-weight: 600; }
-  .brand img { width: 32px; height: 32px; }
+  header { position: sticky; top: 0; z-index: 20; background: var(--bg); background: color-mix(in srgb, var(--bg) 86%, transparent);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--fg); font-weight: 600; font-size: 1.08rem; white-space: nowrap; }
   .brand:hover { text-decoration: none; }
+  .brand img { width: 30px; height: 30px; }
   .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 26px; }
-  .nav li a { color: var(--ink-2); font-weight: 500; font-size: .95rem; }
-  .nav li a:hover { color: var(--teal); text-decoration: none; }
-  @media (max-width: 640px) { .nav ul { gap: 16px; } .nav li a { font-size: .88rem; } .brand span { display: none; } }
+  .nav li a { color: var(--fg-2); font-size: .93rem; font-weight: 500; white-space: nowrap; display: inline-block; padding: 10px 0; }
+  .nav li a:hover { color: var(--fg); text-decoration: none; }
+  @media (max-width: 720px) { .brand span { display: none; } .nav ul { gap: 16px; } .nav li a { font-size: .86rem; } }
+  @media (max-width: 400px) { .nav ul { gap: 11px; } .nav li a { font-size: .82rem; } .nav li.optional { display: none; } }
 
-  .nav li a { white-space: nowrap; display: inline-block; padding: 10px 0; }
-  @media (max-width: 380px) { .nav ul { gap: 12px; } .nav li a { font-size: .84rem; } }
-  @media (max-width: 330px) { .nav li.optional { display: none; } }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 6px; font-weight: 600; font-size: .95rem; border: 1px solid transparent; transition: transform .2s ease, background .2s ease; }
+  .btn:hover { text-decoration: none; transform: translateY(-2px); }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-ghost { border-color: var(--line); color: var(--fg); background: var(--raised); }
 
   /* Hero */
-  .hero { padding: clamp(56px, 9vw, 110px) 0 clamp(48px, 7vw, 90px); display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
-  .hero .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: .95rem; border: 1px solid transparent; }
-  .btn-primary { background: var(--river); color: var(--paper); }
-  .btn-primary:hover { background: var(--river-2); text-decoration: none; }
-  .btn-ghost { border-color: var(--line); color: var(--river); background: var(--surface); }
-  .btn-ghost:hover { border-color: var(--river-2); text-decoration: none; }
-  :root[data-theme="dark"] .btn-primary, :root:not([data-theme="light"]) .btn-primary { }
-  .hero-art { position: relative; height: 500px; }
-  .phone { position: absolute; width: 232px; aspect-ratio: 600 / 1296; filter: drop-shadow(0 22px 30px rgba(60,40,15,.22)); }
-  .phone img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease; }
-  .phone img.on { opacity: 1; }
-  .phone.front { left: 6%; top: 0; transform: rotate(-4deg); }
-  .phone.back { right: 2%; top: 34px; transform: rotate(5deg); }
-  @media (max-width: 860px) {
-    .hero { grid-template-columns: 1fr; gap: 36px; }
-    .hero-art { height: 380px; max-width: 420px; margin-inline: auto; width: 100%; }
-    .phone { width: 172px; }
-    .phone.front { left: 4%; }
-    .phone.back { right: 4%; top: 26px; }
+  .hero { position: relative; isolation: isolate; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .hero video, .hero .hero-still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(90deg, var(--bg) 0%, rgba(11,16,29,.92) 34%, rgba(11,16,29,.45) 68%, rgba(11,16,29,.2) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 30%); }
+  .hero-inner { padding: clamp(72px, 12vw, 150px) 0 clamp(64px, 10vw, 130px); display: grid; gap: 22px; max-width: 760px; }
+  .hero-inner .lede { font-size: 1.14rem; color: var(--fg-2); max-width: 58ch; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+  .hero-cap { font: 400 .76rem/1.5 var(--mono); color: var(--muted); margin-top: 18px; }
+  @media (max-width: 720px) {
+    .hero::after { background: linear-gradient(180deg, rgba(11,16,29,.88) 0%, rgba(11,16,29,.8) 60%, var(--bg) 100%); }
   }
 
-  /* Sections */
-  section { padding: clamp(56px, 8vw, 96px) 0; border-top: 1px solid var(--line); }
-  .section-head { max-width: 62ch; margin-bottom: 40px; }
-  .section-head p { color: var(--ink-2); font-size: 1.08rem; margin-top: 14px; }
+  section { padding: clamp(56px, 8vw, 96px) 0; border-bottom: 1px solid var(--line); }
+  .head { display: grid; gap: 14px; max-width: 66ch; margin-bottom: 36px; }
+  .head p { color: var(--fg-2); font-size: 1.05rem; }
 
-  /* App cards */
-  .apps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
-  .card {
-    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px;
+  /* Capabilities */
+  .caps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .cap { background: var(--panel); padding: 24px 22px; display: grid; gap: 10px; align-content: start; }
+  .cap .n { font: 500 .78rem var(--mono); color: var(--accent); }
+  .cap p { color: var(--fg-2); font-size: .94rem; }
+  @media (max-width: 960px) { .caps { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .caps { grid-template-columns: 1fr; } }
+
+  /* Showcase */
+  .cases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .case { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+  .case .media { background: var(--panel); aspect-ratio: 16 / 9; border-bottom: 1px solid var(--line); }
+  .case .media img, .case .media video { width: 100%; height: 100%; object-fit: cover; }
+  .case .body { padding: 20px 22px 22px; display: grid; gap: 10px; }
+  .case .n { font: 500 .78rem var(--mono); color: var(--accent); letter-spacing: .06em; }
+  .case .result { font: 400 .86rem/1.55 var(--mono); color: var(--fg-2); }
+  .case .links { display: flex; gap: 18px; flex-wrap: wrap; font-size: .9rem; font-weight: 500; margin-top: 2px; }
+  .case .links a, .app .links a:not(.btn) { display: inline-block; padding: 6px 0; }
+  .case.wide { grid-column: 1 / -1; }
+  .case.wide .media { aspect-ratio: 16 / 9; }
+  @media (min-width: 900px) {
+    .case.wide { flex-direction: row; }
+    .case.wide .media { flex: 0 0 62%; border-bottom: 0; border-right: 1px solid var(--line); }
+    .case.wide .body { align-content: center; padding: 28px; }
+    .case.wide h3 { font-size: 1.3rem; }
   }
-  .card-top { display: flex; align-items: center; gap: 16px; }
-  .card-top img { width: 64px; height: 64px; border-radius: 16px; }
-  .card-top h3 { margin: 0; }
-  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
-  .chip { font-size: .72rem; font-weight: 600; letter-spacing: .04em; color: var(--teal); background: var(--teal-soft); padding: 3px 9px; border-radius: 999px; }
-  .card p { color: var(--ink-2); font-size: .98rem; margin: 0; }
-  .card ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: .93rem; display: grid; gap: 6px; }
-  .chip.soon { background: transparent; color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); }
-  .card .more { margin-top: auto; padding-top: 6px; font-weight: 600; font-size: .95rem; }
+  @media (max-width: 760px) { .cases { grid-template-columns: 1fr; } }
 
-  /* Feature tour */
-  .tour-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
-  .tour-head .section-head { margin-bottom: 0; }
-  .tour-nav { display: flex; gap: 10px; flex-shrink: 0; }
-  .tour-nav button {
-    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface);
-    color: var(--river); font-size: 1.25rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow);
-  }
-  .tour-nav button:hover { border-color: var(--river-2); }
-  .tour-nav button:disabled { opacity: .35; cursor: default; box-shadow: none; }
-  .tour-nav button:focus-visible, .tour:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
-  .tour {
-    list-style: none; margin: 0; padding: 6px 4px 22px; display: grid; grid-auto-flow: column;
-    grid-auto-columns: minmax(210px, 250px); gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory;
-    scroll-padding-inline: 4px; scrollbar-width: thin; overscroll-behavior-x: contain;
-  }
-  .tour li { scroll-snap-align: start; min-width: 0; }
-  .tour figure { margin: 0; display: grid; gap: 16px; }
-  .tour img { width: 100%; height: auto; filter: drop-shadow(0 14px 20px rgba(27,36,48,.14)); }
-  .tour figcaption h3 { font-size: 1.15rem; margin-bottom: 4px; }
-  .tour figcaption p { margin: 0; color: var(--ink-2); font-size: .92rem; line-height: 1.5; }
-  @media (max-width: 640px) {
-    .tour-head { display: block; }
-    .tour-nav { display: none; }
-    .tour { grid-auto-columns: 72%; gap: 20px; }
-  }
-  @media (max-width: 640px) { .apps { grid-template-columns: 1fr; } .card { padding: 22px; } }
-  .feature { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); overflow: hidden; }
-  .feature-banner { margin: 0; background: #F6F0E4; border-bottom: 1px solid var(--line); }
-  .feature-banner img { width: 100%; height: auto; }
-  .feature-body { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); padding: clamp(22px, 3.4vw, 40px); align-items: start; }
-  .feature-intro { display: grid; gap: 18px; justify-items: start; }
-  .feature-intro .card-top { display: flex; align-items: center; gap: 16px; }
-  .feature-intro .card-top img { width: 72px; height: 72px; border-radius: 18px; }
-  .play-badge { display: inline-flex; margin: -13px -12px; border-radius: 12px; }
-  .play-badge img { height: 74px; width: auto; display: block; }
-  .play-badge:focus-visible { outline: 2px solid var(--teal); outline-offset: -8px; }
-  .actions { align-items: center; }
-  .feature-intro .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .feature-intro p { margin: 0; color: var(--ink-2); font-size: 1.05rem; }
-  .feature-body ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; color: var(--ink-2); font-size: .97rem; }
-  .feature-body li { padding: 11px 0 11px 26px; border-bottom: 1px solid var(--line); position: relative; }
-  .feature-body li:last-child { border-bottom: 0; }
-  .feature-body li::before { content: ""; position: absolute; left: 4px; top: 1.15em; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
-  @media (max-width: 760px) { .feature-body { grid-template-columns: 1fr; } }
-  #malayalam { border-top: 0; padding-top: 0; }
-  @media (max-width: 760px) { .feature-body li:nth-child(n+5) { display: none; } .feature-body li:nth-child(4) { border-bottom: 0; } }
-  .tour { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 90px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 90px), transparent); }
-  .tour.at-end { -webkit-mask-image: none; mask-image: none; }
-  @media (max-width: 640px) { .tour:not(.at-end) { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); } }
+  /* Method */
+  .method { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .step { border-top: 2px solid var(--accent); padding-top: 16px; display: grid; gap: 8px; align-content: start; }
+  .step p { color: var(--fg-2); font-size: .95rem; }
+  .codes { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .codes span { font: 400 .82rem var(--mono); color: var(--fg-2); border: 1px solid var(--line); background: var(--panel); padding: 5px 10px; border-radius: 4px; }
+  .codes .lead { border: 0; background: none; color: var(--muted); padding-left: 0; }
+  @media (max-width: 760px) { .method { grid-template-columns: 1fr; } }
 
-  /* Coming soon */
-  .soon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .soon-grid .card { box-shadow: none; }
-  .soon-grid .card-top img { filter: saturate(.85); }
-  .card .join {
-    margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 18px; border-radius: 999px; border: 1px solid var(--river); color: var(--river);
-    font-weight: 600; font-size: .92rem;
-  }
-  .card .join:hover { background: var(--river); color: var(--paper); text-decoration: none; }
-  .soon-note { color: var(--ink-2); font-size: .95rem; margin-top: 26px; max-width: 62ch; }
-  @media (max-width: 960px) { .soon-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 640px) { .soon-grid { grid-template-columns: 1fr; } }
+  /* Services and contact */
+  .services { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
+  .services ul { list-style: none; margin: 0; padding: 0; display: grid; }
+  .services li { padding: 14px 0; border-bottom: 1px solid var(--line); display: grid; gap: 4px; }
+  .services li:first-child { padding-top: 0; }
+  .services li b { font-weight: 600; }
+  .services li span { color: var(--fg-2); font-size: .95rem; }
+  .contact { background: var(--raised); border: 1px solid var(--line); border-radius: 10px; padding: 28px; display: grid; gap: 14px; justify-items: start; }
+  .contact p { color: var(--fg-2); }
+  @media (max-width: 860px) { .services { grid-template-columns: 1fr; gap: 32px; } }
 
-  /* About */
-  .about { display: grid; gap: 36px; }
-  .about .text { max-width: 62ch; }
-  .about .text p { color: var(--ink-2); font-size: 1.05rem; }
-  .tenets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  @media (max-width: 760px) { .tenets { grid-template-columns: 1fr; gap: 16px; } }
-  .tenet { border-left: 3px solid var(--gold); padding: 4px 0 4px 18px; }
-  .tenet b { display: block; font-family: var(--serif); font-size: 1.15rem; color: var(--river); font-weight: 500; margin-bottom: 4px; }
-  .tenet span { color: var(--ink-2); font-size: .95rem; }
+  /* Apps */
+  .app { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 22px 24px; }
+  .app img { width: 64px; height: 64px; border-radius: 16px; }
+  .app .txt { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+  .app .txt p { color: var(--fg-2); font-size: .95rem; }
+  .app .links { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; font-weight: 500; font-size: .93rem; }
 
-
-  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: .88rem; }
-  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  footer a { color: var(--ink-2); }
-  footer .legal { margin: 14px 0 0; font-size: .78rem; color: var(--muted); flex-basis: 100%; }
+  footer { padding: 28px 0 44px; color: var(--muted); font-size: .86rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
+  footer a { color: var(--fg-2); display: inline-block; padding: 8px 0; }
   .foot-brand { display: inline-flex; align-items: center; gap: 10px; }
   .foot-links { display: inline-flex; gap: 22px; flex-wrap: wrap; }
 
-  /* Lamplight background: a warm glow behind the hero, hills at its foot, faint paper grain */
-  :root { --glow: rgba(214, 150, 62, .26); --glow-2: rgba(240, 200, 130, .30); --hill-2: #E3D2B6; --hill-3: #D7C09C; --grain-opacity: .07; }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --glow: rgba(214, 150, 62, .16); --glow-2: rgba(240, 190, 110, .10); --hill-2: #1C2734; --hill-3: #22303F; --grain-opacity: .05; }
-  }
-  :root[data-theme="dark"] { --glow: rgba(214, 150, 62, .16); --glow-2: rgba(240, 190, 110, .10); --hill-2: #1C2734; --hill-3: #22303F; --grain-opacity: .05; }
-  .hero-band { position: relative; isolation: isolate; overflow: hidden; }
-  .hero-band::before {
-    content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none;
-    background:
-      radial-gradient(42% 60% at 76% 34%, var(--glow-2), transparent 70%),
-      radial-gradient(70% 90% at 80% 20%, var(--glow), transparent 72%);
-  }
-  .hero-band .hero { padding-bottom: clamp(90px, 12vw, 150px); }
-  @media (max-width: 860px) {
-    .hero-band::before {
-      background:
-        radial-gradient(60% 30% at 70% 74%, var(--glow-2), transparent 70%),
-        radial-gradient(90% 40% at 75% 70%, var(--glow), transparent 72%);
-    }
-  }
-  .hills { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: clamp(90px, 13vw, 170px); z-index: -1; pointer-events: none; }
-  .hills path:nth-child(1) { fill: var(--hill-2); opacity: .7; }
-  .hills path:nth-child(2) { fill: var(--hill-3); opacity: .55; }
-  .hills path:nth-child(3) { fill: var(--paper); }
-  #apps { border-top: 0; }
-  body::after {
-    content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .18 0 0 0 .55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); opacity: var(--grain-opacity); mix-blend-mode: multiply;
-  }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body::after { mix-blend-mode: screen; } }
-  :root[data-theme="dark"] body::after { mix-blend-mode: screen; }
-
-  /* Motion: only for visitors who have not asked their device to reduce it */
   @media (prefers-reduced-motion: no-preference) {
     @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @keyframes float-front { 0%, 100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-2.6deg) translateY(-18px); } }
-    @keyframes float-back { 0%, 100% { transform: rotate(5deg) translateY(0); } 50% { transform: rotate(6.4deg) translateY(14px); } }
-    @keyframes breathe { 0%, 100% { opacity: .78; } 50% { opacity: 1; } }
-    .hero > div:first-child > * { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
-    .hero > div:first-child > :nth-child(2) { animation-delay: .08s; }
-    .hero > div:first-child > :nth-child(3) { animation-delay: .16s; }
-    .hero > div:first-child > :nth-child(4) { animation-delay: .24s; }
-    .hero-art { animation: rise .9s .2s cubic-bezier(.2,.7,.2,1) both; }
-    .phone.front { animation: float-front 7s ease-in-out infinite; }
-    .phone.back { animation: float-back 9s ease-in-out infinite; }
-    .hero-band::before { animation: breathe 8s ease-in-out infinite; }
-    html.js .reveal { opacity: 0; transform: translateY(40px) scale(.975); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
-    html.js .feature li { opacity: 0; transform: translateX(18px); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
-    html.js .feature.in li { opacity: 1; transform: none; }
-    html.js .feature.in li:nth-child(1) { transition-delay: .25s; } html.js .feature.in li:nth-child(2) { transition-delay: .33s; }
-    html.js .feature.in li:nth-child(3) { transition-delay: .41s; } html.js .feature.in li:nth-child(4) { transition-delay: .49s; }
-    html.js .feature.in li:nth-child(5) { transition-delay: .57s; } html.js .feature.in li:nth-child(6) { transition-delay: .65s; }
-    html.js .feature.in li:nth-child(7) { transition-delay: .73s; }
-    html.js .tour.reveal li { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
-    html.js .tour.reveal.in li { opacity: 1; transform: none; }
-    html.js .tour.in li:nth-child(2) { transition-delay: .1s; } html.js .tour.in li:nth-child(3) { transition-delay: .2s; }
-    html.js .tour.in li:nth-child(4) { transition-delay: .3s; } html.js .tour.in li:nth-child(5) { transition-delay: .4s; }
-    .hero-art { translate: 0 calc(var(--sy, 0) * -0.10px); }
-    .hills path:nth-child(1) { translate: 0 calc(var(--sy, 0) * 0.07px); }
-    .hills path:nth-child(2) { translate: 0 calc(var(--sy, 0) * 0.035px); }
-    .hero-band::before { translate: 0 calc(var(--sy, 0) * 0.18px); }
-    .btn, .play-badge { transition: transform .2s ease; }
-    .btn:hover, .play-badge:hover { transform: translateY(-2px); }
+    .hero-inner > * { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-inner > :nth-child(2) { animation-delay: .08s; } .hero-inner > :nth-child(3) { animation-delay: .16s; }
+    .hero-inner > :nth-child(4) { animation-delay: .24s; } .hero-inner > :nth-child(5) { animation-delay: .32s; }
+    html.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
     html.js .reveal.in { opacity: 1; transform: none; }
-    html.js .soon-grid .reveal:nth-child(2), html.js .tenets .reveal:nth-child(2) { transition-delay: .1s; }
-    html.js .soon-grid .reveal:nth-child(3), html.js .tenets .reveal:nth-child(3) { transition-delay: .2s; }
-    .card, .feature, .tour img { transition: transform .25s ease, box-shadow .25s ease; }
-    .soon-grid .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    .tour li:hover img { transform: translateY(-6px); }
+    .case { transition: border-color .25s ease, transform .25s ease; }
+    .case:hover { border-color: #3A4868; transform: translateY(-3px); }
   }
 </style>
 </head>
@@ -319,310 +163,270 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top" aria-label="Rivers Research">
-      <img src="assets/mark.svg" alt="">
-      <span>Rivers Research</span>
-    </a>
+    <a class="brand" href="#top" aria-label="Rivers Research"><img src="assets/mark.svg" alt=""><span>Rivers Research</span></a>
     <nav aria-label="Sections">
       <ul>
-        <li><a href="#apps">The app</a></li>
-        <li class="optional"><a href="#malayalam">Tour</a></li>
-        <li><a href="#coming">Coming soon</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="#capabilities">Capabilities</a></li>
+        <li><a href="#showcase">Showcase</a></li>
+        <li class="optional"><a href="#method">Method</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="bible/">Apps</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
 <main id="top">
-  <div class="hero-band">
-  <div class="wrap hero">
-    <div>
-      <div class="eyebrow">Rivers Research</div>
-      <h1>Read and study the Bible in Malayalam and English.</h1>
-      <p class="lede" style="margin-top:20px">Our Malayalam–English study Bible, <span lang="ml">വേദപുസ്തകം</span>, shows the Hebrew and Greek under every word and works offline. English, Tamil and four-language editions are coming soon.</p>
-      <div class="actions">
-        <a class="play-badge" href="https://play.google.com/store/apps/details?id=org.riversresearch.bible.malayalam" rel="noopener"><img src="assets/google-play-badge.png" width="646" height="250" alt="Get it on Google Play"></a>
-        <a class="btn btn-ghost" href="#apps">See the app</a>
+  <div class="hero">
+    <img class="hero-still" src="assets/sim/hero.webp" alt="" width="1600" height="900">
+    <video id="hero-video" muted loop playsinline preload="none" poster="assets/sim/hero.webp" aria-hidden="true" tabindex="-1"></video>
+    <div class="wrap">
+      <div class="hero-inner">
+        <div class="label">Simulation and analysis</div>
+        <h1>Validated simulation of fluids, shocks, blast and impact.</h1>
+        <p class="lede">Rivers Research runs high-resolution simulations and checks each one against a published experiment or reference solution before reporting a result.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#services" data-mail="Simulation project">Discuss a project</a>
+          <a class="btn btn-ghost" href="#showcase">See the showcase</a>
+        </div>
+        <p class="hero-cap">Background: 3D dam break onto an obstacle, the MARIN experiment (SPHERIC Test 2)</p>
       </div>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <div class="phone back" data-screens="hebrew-greek,compare,verse-options"><img class="on" src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" alt=""></div>
-      <div class="phone front" data-screens="verse-card,translations,search,notebook"><img class="on" src="assets/malayalam/verse-card.webp" width="600" height="1296" alt=""></div>
+  </div>
+
+  <section id="capabilities">
+    <div class="wrap">
+      <div class="head">
+        <div class="label">Capabilities</div>
+        <h2>Four areas of work</h2>
+        <p>Each area below is backed by worked cases in the showcase, with the comparison against reference data shown.</p>
+      </div>
+      <div class="caps">
+        <div class="cap"><span class="n">01</span><h3>Turbulence</h3><p>Direct numerical simulation of isotropic turbulence, Lagrangian tracers and passive-scalar mixing.</p></div>
+        <div class="cap"><span class="n">02</span><h3>Blast and detonation</h3><p>Blast waves in the open, in rooms and between buildings, and cellular detonation with detailed chemistry.</p></div>
+        <div class="cap"><span class="n">03</span><h3>Shocks and multiphase</h3><p>Shock–interface interaction and shock-driven bubble collapse near walls.</p></div>
+        <div class="cap"><span class="n">04</span><h3>Free surface, impact and porous media</h3><p>Dam-break loads on structures, high-rate metal impact, and pore-scale flow and permeability.</p></div>
+      </div>
     </div>
-  </div>
-    <svg class="hills" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 120 C 180 70, 340 70, 520 105 S 860 150, 1040 110 S 1300 60, 1440 95 L1440 200 L0 200 Z"/>
-      <path d="M0 150 C 200 115, 400 125, 600 145 S 980 180, 1180 140 S 1380 120, 1440 132 L1440 200 L0 200 Z"/>
-      <path d="M0 178 C 260 160, 520 168, 760 182 S 1180 196, 1440 170 L1440 200 L0 200 Z"/>
-    </svg>
-  </div>
+  </section>
+
+  <section id="showcase">
+    <div class="wrap">
+      <div class="head">
+        <div class="label">Showcase</div>
+        <h2>Eleven cases, each with its validation</h2>
+        <p>Every image comes from a run on our 192-core AMD EPYC workstation. The line under each title is the headline comparison, and the validation figure shows the full check.</p>
+      </div>
+
+      <div class="cases">
+        <article class="case wide">
+          <div class="media"><video controls playsinline preload="none" poster="assets/sim/dam-break.webp" src="assets/sim/dam-break.mp4" aria-label="Video: water column collapsing in a tank and striking a box"></video></div>
+          <div class="body">
+            <span class="n">09</span>
+            <h3>3D dam break impacting an obstacle: the MARIN experiment (SPHERIC Test 2)</h3>
+            <p class="result">Mean loads on the box within −2.7 to +6.4 % of the measured MARIN data · impact peak +10 %</p>
+            <div class="links"><a href="assets/sim/dam-break-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="media"><img src="assets/sim/turbulence.webp" width="1280" height="598" loading="lazy" alt="Vortex filaments in a cube of isotropic turbulence"></div>
+          <div class="body">
+            <span class="n">01</span>
+            <h3>Forced isotropic turbulence at Re_λ ≈ 240: direct numerical simulation on a 512³ grid</h3>
+            <p class="result">512³ DNS, Re_λ ≈ 240 · Kolmogorov constant 1.72 · derivative skewness −0.55 · k_max·η = 1.17</p>
+            <div class="links"><a href="assets/sim/turbulence-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="media"><img src="assets/sim/tracers.webp" width="1280" height="598" loading="lazy" alt="Tracer particle clouds inside a cube coloured by a mixing scalar"></div>
+          <div class="body">
+            <span class="n">02</span>
+            <h3>Lagrangian tracer dispersion and passive-scalar mixing in isotropic turbulence (Re_λ ≈ 155, 256³ DNS)</h3>
+            <p class="result">Tracer dispersion matches Taylor's ballistic limit to 0.2 % · Lagrangian/Eulerian variance 0.991</p>
+            <div class="links"><a href="assets/sim/tracers-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="media"><img src="assets/sim/detonation.webp" width="1280" height="598" loading="lazy" alt="Detonation front with its cellular soot-foil pattern below"></div>
+          <div class="body">
+            <span class="n">03</span>
+            <h3>Cellular detonation in 2 H₂ + O₂ + 7 Ar: 2D simulation with detailed chemistry and a numerical soot foil</h3>
+            <p class="result">Front speed +0.11 % from Chapman–Jouguet · cell width 20 mm vs 23.7–27.3 mm measured (Strehlow 1967)</p>
+            <div class="links"><a href="assets/sim/detonation-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="media"><img src="assets/sim/blast-room.webp" width="1280" height="598" loading="lazy" alt="Shock fronts reflecting inside a closed room"></div>
+          <div class="body">
+            <span class="n">04</span>
+            <h3>TNT blast in a closed room: 3D shock reflections, wall loads and gas pressure</h3>
+            <p class="result">Incident shock within ±6 % of Kingery–Bulmash at Z ≥ 1 · mass conserved exactly, energy to 3×10⁻⁴</p>
+            <div class="links"><a href="assets/sim/blast-room-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="media"><img src="assets/sim/surface-burst.webp" width="1280" height="598" loading="lazy" alt="Hemispherical blast wave expanding from a surface charge"></div>
+          <div class="body">
+            <span class="n">05</span>
+            <h3>2 kg TNT surface burst: blast wave with adaptive mesh refinement, validated against Kingery–Bulmash</h3>
+            <p class="result">Peak overpressure −5 to −8 % from Kingery–Bulmash beyond Z = 1.5 · arrival time within 1–11 %</p>
+            <div class="links"><a href="assets/sim/surface-burst-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="media"><img src="assets/sim/shock-bubble.webp" width="1280" height="598" loading="lazy" alt="Helium cylinder rolled up into two vortices after a shock has passed"></div>
+          <div class="body">
+            <span class="n">07</span>
+            <h3>Shock–helium cylinder interaction: the Haas &amp; Sturtevant experiment, Mach 1.22</h3>
+            <p class="result">All 6 wave and interface speeds within the ±11 % uncertainty of Haas &amp; Sturtevant (1987)</p>
+            <div class="links"><a href="assets/sim/shock-bubble-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="media"><img src="assets/sim/bubble-collapse.webp" width="1280" height="598" loading="lazy" alt="Air bubble collapsing next to a rigid wall under a shock"></div>
+          <div class="body">
+            <span class="n">08</span>
+            <h3>Shock-induced collapse of an air bubble near a rigid wall</h3>
+            <p class="result">Collapse time within 0.5 % of Rayleigh, grid-converged · peak wall pressure not converged (stated)</p>
+            <div class="links"><a href="assets/sim/bubble-collapse-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="media"><video controls playsinline preload="none" poster="assets/sim/taylor.webp" src="assets/sim/taylor.mp4" aria-label="Video: copper rod mushrooming on a steel anvil"></video></div>
+          <div class="body">
+            <span class="n">10</span>
+            <h3>Taylor impact test: OFHC copper rod at 190 m/s</h3>
+            <p class="result">Final length within 0.4–0.9 % of Johnson &amp; Cook's computation · energy balance closes to 0.07 %</p>
+            <div class="links"><a href="assets/sim/taylor-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="media"><img src="assets/sim/porous.webp" width="1280" height="598" loading="lazy" alt="Flow speed between randomly packed disks in a porous medium"></div>
+          <div class="body">
+            <span class="n">11</span>
+            <h3>Flow through a random porous medium: permeability from the pore scale</h3>
+            <p class="result">Square-array permeability within 0.004–0.15 % of Barnett et al. (2016) · second-order convergence</p>
+            <div class="links"><a href="assets/sim/porous-validation.webp">Validation figure</a></div>
+          </div>
+        </article>
+
+        <article class="case wide">
+          <div class="media"><video controls playsinline preload="none" poster="assets/sim/urban-blast.webp" src="assets/sim/urban-blast.mp4" aria-label="Video: blast wave spreading through a city street intersection"></video></div>
+          <div class="body">
+            <span class="n">12</span>
+            <h3>100 kg TNT at a city street intersection: facade loads, shielding and channelling, checked against Kingery–Bulmash</h3>
+            <p class="result">Free field → Kingery–Bulmash with mesh refinement (within 4 % at 5 cm) · facade impulse within 5–7 % of DDESB TP-20</p>
+            <div class="links"><a href="assets/sim/urban-blast-validation.webp">Validation figure</a><a href="assets/sim/urban-design-validation.webp">Protective-design quantities</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="method">
+    <div class="wrap">
+      <div class="head">
+        <div class="label">Method</div>
+        <h2>How a result gets reported</h2>
+      </div>
+      <div class="method">
+        <div class="step"><h3>Reproduce a known case first</h3><p>Before a new problem, the same setup is run on an experiment or reference solution from the literature, such as MARIN, Haas &amp; Sturtevant or Kingery–Bulmash.</p></div>
+        <div class="step"><h3>Show the grid study</h3><p>Results are run at more than one resolution, and the report says which quantities have converged and which have not.</p></div>
+        <div class="step"><h3>State the difference</h3><p>Each headline number is given with its deviation from the reference, including the cases where the agreement is weaker.</p></div>
+      </div>
+      <div class="codes" aria-label="Solvers used in the showcase">
+        <span class="lead">Solvers used in the showcase</span>
+        <span>OpenFOAM</span><span>blastFoam</span><span>MFC</span><span>OpenRadioss</span><span>HIT36 DNS</span><span>RECUR</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap services">
+      <div>
+        <div class="head">
+          <div class="label">Services</div>
+          <h2>Simulation studies for your problem</h2>
+          <p>We take on fluid, shock, blast and impact problems where the answer has to be defensible.</p>
+        </div>
+        <ul>
+          <li><b>Simulation studies</b><span>Setup, runs and analysis for a defined engineering question, delivered with the validation case alongside.</span></li>
+          <li><b>Loads on structures</b><span>Pressure, impulse and force histories on walls, facades and obstacles from blast, wave impact or flow.</span></li>
+          <li><b>Checks against experiment</b><span>Reproducing a published test with your solver settings, to show how far a model can be trusted.</span></li>
+          <li><b>Figures and animation</b><span>Publication figures and rendered video made from the computed fields.</span></li>
+        </ul>
+      </div>
+      <div class="contact">
+        <h3>Discuss a project</h3>
+        <p>Tell us what you need to know and what data you have. We reply by email.</p>
+        <a class="btn btn-primary" href="#services" data-mail="Simulation project">Email us</a>
+      </div>
+    </div>
+  </section>
 
   <section id="apps">
     <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow">Available now</div>
-        <h2>Our Malayalam–English study Bible</h2>
-        <p>It needs no account and shows no ads. Once installed, it works without an internet connection.</p>
+      <div class="head">
+        <div class="label">Apps</div>
+        <h2>Also from Rivers Research</h2>
       </div>
-
-      <article class="feature">
-        <figure class="feature-banner">
-          <img src="assets/malayalam/banner.webp" srcset="assets/malayalam/banner.webp 1600w, assets/malayalam/banner-2400.webp 2400w" sizes="(min-width: 1132px) 1100px, calc(100vw - 32px)" width="1600" height="686" decoding="async" alt="വേദപുസ്തകം, Malayalam–English Study Bible: three Malayalam and four English translations, with the Hebrew and Greek texts. Two phones show John 1 and the translation comparison.">
-        </figure>
-        <div class="feature-body">
-          <div class="feature-intro">
-            <div class="card-top">
-              <img src="assets/bible-ml.png" alt="വേദപുസ്തകം app icon: a lamp flame above an open book">
-              <div>
-                <h3 lang="ml">വേദപുസ്തകം</h3>
-                <div class="chips"><span class="chip">Android</span><span class="chip soon">Coming soon on iPhone</span></div>
-              </div>
-            </div>
-            <p>Three Malayalam translations, four English ones, and the Hebrew and Greek texts. Each Malayalam word is linked to the Hebrew or Greek behind it, so you can tap a word and study it in Malayalam.</p>
-            <div class="actions">
-              <a class="play-badge" href="https://play.google.com/store/apps/details?id=org.riversresearch.bible.malayalam" rel="noopener"><img src="assets/google-play-badge.png" width="646" height="250" alt="Get it on Google Play"></a>
-              <a class="btn btn-ghost" href="#malayalam">See the screens</a>
-            </div>
-          </div>
-          <ul>
-            <li>Sathyavedapusthakam 1910, the Indian Revised Version (IRV) and the Open Malayalam Contemporary Version (OMCV)</li>
-            <li>King James, Berean Standard, Literal Standard and American Standard in English</li>
-            <li>One verse in all seven translations, side by side</li>
-            <li>The Malayalam word shown next to the original, with its English meaning</li>
-            <li>Search in Malayalam or English, using modern Malayalam spelling</li>
-            <li>Share a verse as a picture card, with an optional message</li>
-            <li>Interface in Malayalam, with English available</li>
-          </ul>
+      <div class="app">
+        <img src="assets/bible-ml.png" alt="വേദപുസ്തകം app icon: a lamp flame above an open book">
+        <div class="txt">
+          <h3><span lang="ml">വേദപുസ്തകം</span>, a Malayalam–English study Bible</h3>
+          <p>Three Malayalam and four English translations with the Hebrew and Greek texts. Works offline, with no account and no ads.</p>
         </div>
-      </article>
-    </div>
-  </section>
-
-  <section id="malayalam">
-    <div class="wrap">
-      <div class="tour-head">
-        <div class="section-head">
-          <div class="eyebrow">A closer look</div>
-          <h2>Inside <span lang="ml">വേദപുസ്തകം</span></h2>
-          <p>Seven screens from the app. Scroll sideways to see them all.</p>
-        </div>
-        <div class="tour-nav">
-          <button type="button" data-dir="-1" aria-label="Previous screens" aria-controls="tour">&#8592;</button>
-          <button type="button" data-dir="1" aria-label="Next screens" aria-controls="tour">&#8594;</button>
+        <div class="links">
+          <a class="btn btn-ghost" href="bible/">See the app</a>
+          <a href="bible/privacy">Privacy policy</a>
         </div>
       </div>
-      <ol class="tour" id="tour" tabindex="0" aria-label="Screens from വേദപുസ്തകം">
-          <li>
-            <figure>
-              <img src="assets/malayalam/translations.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1 in the Sathyavedapusthakam 1910, open in the reader">
-              <figcaption><h3>Three Malayalam translations</h3><p>Sathyavedapusthakam 1910, IRV and OMCV, with four English translations</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/hebrew-greek.webp" width="600" height="1296" loading="lazy" decoding="async" alt="The Malayalam word for beginning selected, showing the Greek word archē and its meaning">
-              <figcaption><h3>Hebrew and Greek</h3><p>Selecting a word shows the word it translates</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/compare.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:2 shown in three Malayalam and four English translations">
-              <figcaption><h3>Comparing translations</h3><p>One verse in all seven translations</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/verse-options.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:2–3 selected, with copy, share, highlight, bookmark and note buttons">
-              <figcaption><h3>Verse options</h3><p>Selecting a verse number: copy, share, highlight, bookmark or note</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/verse-card.webp" width="600" height="1296" loading="lazy" decoding="async" alt="John 1:3 made into a picture card, with occasion and design choices">
-              <figcaption><h3>A verse as an image</h3><p>For sharing, with an optional message</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/notebook.webp" width="600" height="1296" loading="lazy" decoding="async" alt="A notebook page collecting three Malayalam verses about love">
-              <figcaption><h3>Notebook</h3><p>Typed or handwritten pages, stored on the device</p></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="assets/malayalam/search.webp" width="600" height="1296" loading="lazy" decoding="async" alt="A search for the Malayalam word for love, finding 58 verses">
-              <figcaption><h3>Search</h3><p>In Malayalam or English, without an internet connection</p></figcaption>
-            </figure>
-          </li>
-      </ol>
     </div>
   </section>
-
-  <section id="coming">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow">Coming soon</div>
-        <h2>More editions on the way</h2>
-        <p>These apps are nearly ready. If you would like to try one before it is released, write to us and we will add you as a tester.</p>
-      </div>
-      <div class="soon-grid">
-        <article class="card">
-          <div class="card-top">
-            <img src="assets/bible-en.png" alt="Bible app icon: a lamp flame above an open book">
-            <div>
-              <h3>Bible</h3>
-              <div class="chips"><span class="chip soon">Android</span><span class="chip soon">iPhone</span><span class="chip">English</span></div>
-            </div>
-          </div>
-          <p>An English study Bible with the Hebrew and Greek underneath every word. Tap a word to see the original, its grammar in plain English, its meaning and Strong's dictionary entry.</p>
-          <ul>
-            <li>Five English translations, including the King James Version</li>
-            <li>Hebrew and Greek text of every verse, word by word</li>
-          </ul>
-          <a class="join" href="#coming" data-app="Bible (English)" data-platforms="Android or iPhone">Join the testers</a>
-        </article>
-        <article class="card">
-          <div class="card-top">
-            <img src="assets/bible-ta.png" alt="வேதாகமம் app icon: a lamp flame above an open book">
-            <div>
-              <h3 lang="ta">வேதாகமம்</h3>
-              <div class="chips"><span class="chip soon">Android</span><span class="chip soon">iPhone</span><span class="chip">Tamil</span></div>
-            </div>
-          </div>
-          <p>A Tamil–English study Bible: the Tamil Indian Revised Version with four English translations and the Hebrew and Greek texts.</p>
-          <ul>
-            <li>Tamil Indian Revised Version, with four English translations</li>
-            <li>Interface in Tamil, with English available</li>
-          </ul>
-          <a class="join" href="#coming" data-app="வேதாகமம் (Tamil)" data-platforms="Android or iPhone">Join the testers</a>
-        </article>
-        <article class="card">
-          <div class="card-top">
-            <img src="assets/bible-india.png" alt="Bibles app icon: a lamp flame above an open book">
-            <div>
-              <h3>Bibles</h3>
-              <div class="chips"><span class="chip soon">Android</span><span class="chip">Four languages</span></div>
-            </div>
-          </div>
-          <p>Eight Bibles in four languages in one app. On first opening it asks which language to read in, and opens that Bible with its menus in the same language.</p>
-          <ul>
-            <li>Five English Bibles, and one each in Malayalam, Tamil and Hindi</li>
-            <li>Hebrew and Greek interlinear</li>
-          </ul>
-          <a class="join" href="#coming" data-app="Bibles (four languages)" data-platforms="Android">Join the testers</a>
-        </article>
-      </div>
-      <p class="soon-note">Testing is free. Tell us whether you use Android or iPhone, and we will send you an invitation when the test version is ready.</p>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="wrap about">
-      <div class="text">
-        <div class="eyebrow">About</div>
-        <h2>About us</h2>
-        <p style="margin-top:18px">Rivers Research is an independent company that builds and publishes the apps on this page. We started making them for our own Bible study.</p>
-      </div>
-      <div class="tenets">
-        <div class="tenet"><b>Works offline</b><span>The whole Bible is inside the app, so you can use it anywhere, including in a church with poor reception.</span></div>
-        <div class="tenet"><b>Private</b><span>No accounts, no ads and no data collected. Your notes stay on your phone. Our <a href="bible/privacy">privacy policy</a> explains the details.</span></div>
-        <div class="tenet"><b>Trusted sources</b><span>The Hebrew and Greek text comes from the Leningrad Codex and STEPBible. Each app lists every source in its settings.</span></div>
-      </div>
-    </div>
-  </section>
-
 </main>
 
 <footer>
   <div class="wrap">
     <span class="foot-brand"><img src="assets/mark.svg" alt="" width="22" height="22"> © 2026 Rivers Research</span>
-    <span class="foot-links"><a href="#apps">App</a><a href="#coming">Coming soon</a><a href="bible/privacy">Privacy policy</a></span>
+    <span class="foot-links"><a href="#showcase">Showcase</a><a href="bible/">Bible app</a><a href="bible/privacy">Privacy policy</a></span>
   </div>
-  <div class="wrap"><p class="legal">Google Play and the Google Play logo are trademarks of Google LLC.</p></div>
 </footer>
 
 <script>
-  // Sections fade in as they scroll into view. Without this script, or with reduced motion, everything is simply visible.
+  // Contact buttons open a note in the visitor's mail app. The address is assembled here, so it never appears as text on the page.
+  (function () {
+    var to = "dond" + "@" + "riversresearch.org";
+    document.querySelectorAll("a[data-mail]").forEach(function (a) {
+      a.href = "mailto:" + to + "?subject=" + encodeURIComponent(a.dataset.mail);
+    });
+  })();
+
+  // Hero video starts only when motion is welcome, and after the page has loaded.
+  (function () {
+    var v = document.getElementById("hero-video");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { v.remove(); return; }
+    function start() { v.src = "assets/sim/dam-break.mp4"; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    if (document.readyState === "complete") start(); else window.addEventListener("load", start);
+  })();
+
+  // Sections fade in as they scroll into view. Without this script everything is simply visible.
   (function () {
     if (!("IntersectionObserver" in window)) return;
-    var items = document.querySelectorAll(".section-head, .feature, .tour, .soon-grid .card, .soon-note, .about .text, .tenet");
     document.documentElement.classList.add("js");
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
-    items.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
+    }, { threshold: 0.06, rootMargin: "0px 0px -5% 0px" });
+    document.querySelectorAll(".head, .caps, .case, .step, .codes, .services ul, .contact, .app").forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   })();
 </script>
-<script>
-  // Hero: the two phones cycle through the app's screens, and the scene shifts gently with scrolling.
-  (function () {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var band = document.querySelector(".hero-band");
-    var ticking = false;
-    window.addEventListener("scroll", function () {
-      if (ticking) return; ticking = true;
-      requestAnimationFrame(function () { band.style.setProperty("--sy", Math.min(window.scrollY, 1200)); ticking = false; });
-    }, { passive: true });
-    var phones = [].slice.call(document.querySelectorAll(".phone[data-screens]"));
-    function start() {
-      phones.forEach(function (ph) {
-        ph.dataset.screens.split(",").slice(1).forEach(function (name) {
-          var img = new Image(); img.alt = ""; img.width = 600; img.height = 1296;
-          img.src = "assets/malayalam/" + name + ".webp"; ph.appendChild(img);
-        });
-        ph.dataset.i = 0;
-      });
-      var turn = 0;
-      setInterval(function () {
-        if (document.hidden) return;
-        var ph = phones[turn++ % phones.length], imgs = ph.querySelectorAll("img");
-        var next = (Number(ph.dataset.i) + 1) % imgs.length;
-        if (!imgs[next].complete) return;
-        imgs[ph.dataset.i].classList.remove("on"); imgs[next].classList.add("on"); ph.dataset.i = next;
-      }, 2600);
-    }
-    if (document.readyState === "complete") start(); else window.addEventListener("load", start);
-  })();
-</script>
-<script>
-  // Tester links open a note in the visitor's mail app. The address is assembled here, so it never appears as text on the page.
-  (function () {
-    var to = "dond" + "@" + "riversresearch.org";
-    document.querySelectorAll("a.join").forEach(function (a) {
-      var subject = "Tester: " + a.dataset.app;
-      var body = "I would like to test " + a.dataset.app + ".\n\nMy phone (" + a.dataset.platforms + "): \n";
-      a.href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-    });
-  })();
-
-  // Arrow buttons for the screen tour; the row also scrolls by swipe, trackpad or keyboard.
-  (function () {
-    var row = document.getElementById("tour");
-    if (!row) return;
-    var buttons = document.querySelectorAll(".tour-nav button");
-    var smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    function step() {
-      var item = row.querySelector("li");
-      var gap = parseFloat(getComputedStyle(row).columnGap) || 0;
-      return item ? item.getBoundingClientRect().width + gap : row.clientWidth;
-    }
-    function update() {
-      var max = row.scrollWidth - row.clientWidth - 2;
-      buttons[0].disabled = row.scrollLeft <= 2;
-      buttons[1].disabled = row.scrollLeft >= max;
-      row.classList.toggle("at-end", row.scrollLeft >= max);
-    }
-    buttons.forEach(function (b) {
-      b.addEventListener("click", function () {
-        row.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: smooth ? "smooth" : "auto" });
-      });
-    });
-    row.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update();
-  })();
-</script>
-
 </body>
 </html>
