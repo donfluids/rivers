@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'none'; script-src 'unsafe-inline'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Rivers Research</title>
-<meta name="description" content="Rivers Research performs numerical simulation of turbulence, blast and detonation, shock and multiphase flow, free-surface flow, impact and porous media, with documented validation against published references.">
+<meta name="description" content="Rivers Research performs numerical simulation of fluids, shock waves, blast and impact, checked against published experiments.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Rivers Research">
 <meta property="og:description" content="Numerical simulation of fluids, shock waves, blast and impact, checked against published experiments.">
@@ -18,413 +18,54 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-  /* Layout: a dark technical page. The simulation images are rendered on near-black navy, so the page shares
-     their ground and the figures sit in it without frames. One column of sections, cards on a two-column grid. */
-  :root {
-    color-scheme: dark;
-    --bg: #0B101D;
-    --panel: #0E1221;
-    --raised: #141A2C;
-    --line: #232B42;
-    --fg: #E6ECF6;
-    --fg-2: #AEB9CC;
-    --muted: #7C889E;
-    --accent: #56C1F0;
-    --accent-ink: #06202E;
-    --warm: #F0A24B;
-    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  img, video { max-width: 100%; display: block; }
-  h1, h2, h3 { margin: 0; font-weight: 600; line-height: 1.15; letter-spacing: -0.015em; text-wrap: balance; }
-  h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
-  h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
-  h3 { font-size: 1.08rem; line-height: 1.3; letter-spacing: -0.005em; }
-  p { margin: 0; }
-  .wrap { width: min(1180px, 100% - 32px); margin-inline: auto; }
-  .label { font: 500 .78rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-
-  header { position: sticky; top: 0; z-index: 20; background: var(--bg); background: color-mix(in srgb, var(--bg) 86%, transparent);
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
-  .brand { display: flex; align-items: center; gap: 12px; color: var(--fg); font-weight: 600; font-size: 1.08rem; white-space: nowrap; }
-  .brand:hover { text-decoration: none; }
-  .brand img { width: 30px; height: 30px; }
-  .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 26px; }
-  .nav li a { color: var(--fg-2); font-size: .93rem; font-weight: 500; white-space: nowrap; display: inline-block; padding: 10px 0; }
-  .nav li a:hover { color: var(--fg); text-decoration: none; }
-  @media (max-width: 720px) { .brand span { display: none; } .nav ul { gap: 16px; } .nav li a { font-size: .86rem; } }
-  @media (max-width: 400px) { .nav ul { gap: 11px; } .nav li a { font-size: .82rem; } .nav li.optional { display: none; } }
-
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 6px; font-weight: 600; font-size: .95rem; border: 1px solid transparent; transition: transform .2s ease, background .2s ease; }
-  .btn:hover { text-decoration: none; transform: translateY(-2px); }
-  .btn-primary { background: var(--accent); color: var(--accent-ink); }
-  .btn-ghost { border-color: var(--line); color: var(--fg); background: var(--raised); }
-
-  /* Hero */
-  .hero { position: relative; isolation: isolate; overflow: hidden; border-bottom: 1px solid var(--line); }
-  .hero video, .hero .hero-still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
-  .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(90deg, var(--bg) 0%, rgba(11,16,29,.92) 34%, rgba(11,16,29,.45) 68%, rgba(11,16,29,.2) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 30%); }
-  .hero-inner { padding: clamp(72px, 12vw, 150px) 0 clamp(64px, 10vw, 130px); display: grid; gap: 22px; max-width: 760px; }
-  .hero-inner .lede { font-size: 1.14rem; color: var(--fg-2); max-width: 58ch; }
-  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
-  .hero-cap { font: 400 .76rem/1.5 var(--mono); color: var(--muted); margin-top: 18px; }
-  @media (max-width: 720px) {
-    .hero::after { background: linear-gradient(180deg, rgba(11,16,29,.88) 0%, rgba(11,16,29,.8) 60%, var(--bg) 100%); }
-  }
-
-  section { padding: clamp(56px, 8vw, 96px) 0; border-bottom: 1px solid var(--line); }
-  .head { display: grid; gap: 14px; max-width: 66ch; margin-bottom: 36px; }
-  .head p { color: var(--fg-2); font-size: 1.05rem; }
-
-  /* Capabilities */
-  .caps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-  .cap { background: var(--panel); padding: 24px 22px; display: grid; gap: 10px; align-content: start; }
-  .cap p { color: var(--fg-2); font-size: .94rem; }
-  @media (max-width: 960px) { .caps { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 540px) { .caps { grid-template-columns: 1fr; } }
-
-  /* Showcase */
-  .cases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
-  .case { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
-  .case .media { background: var(--panel); aspect-ratio: 16 / 9; border-bottom: 1px solid var(--line); }
-  .case .media img, .case .media video { width: 100%; height: 100%; object-fit: cover; }
-  .case .body { padding: 20px 22px 22px; display: grid; gap: 10px; }
-  .case .plain { color: var(--fg-2); font-size: .97rem; }
-  .case .result { font: 400 .8rem/1.55 var(--mono); color: var(--muted); }
-  .case .links { display: flex; gap: 18px; flex-wrap: wrap; font-size: .9rem; font-weight: 500; margin-top: 2px; }
-  .case .links a, .app .links a:not(.btn) { display: inline-block; padding: 6px 0; }
-  .case.wide { grid-column: 1 / -1; }
-  .case.wide .media { aspect-ratio: 16 / 9; }
-  @media (min-width: 900px) {
-    .case.wide { flex-direction: row; }
-    .case.wide .media { flex: 0 0 62%; border-bottom: 0; border-right: 1px solid var(--line); }
-    .case.wide .body { align-content: center; padding: 28px; }
-    .case.wide h3 { font-size: 1.3rem; }
-  }
-  @media (max-width: 760px) { .cases { grid-template-columns: 1fr; } }
-
-  /* Method */
-  .method { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  .step { border-top: 2px solid var(--accent); padding-top: 16px; display: grid; gap: 8px; align-content: start; }
-  .step p { color: var(--fg-2); font-size: .95rem; }
-  .codes { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  .codes span { font: 400 .82rem var(--mono); color: var(--fg-2); border: 1px solid var(--line); background: var(--panel); padding: 5px 10px; border-radius: 4px; }
-  .codes .lead { border: 0; background: none; color: var(--muted); padding-left: 0; }
-  @media (max-width: 760px) { .method { grid-template-columns: 1fr; } }
-
-  /* Services and contact */
-  .services { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
-  .services ul { list-style: none; margin: 0; padding: 0; display: grid; }
-  .services li { padding: 14px 0; border-bottom: 1px solid var(--line); display: grid; gap: 4px; }
-  .services li:first-child { padding-top: 0; }
-  .services li b { font-weight: 600; }
-  .services li span { color: var(--fg-2); font-size: .95rem; }
-  .contact { background: var(--raised); border: 1px solid var(--line); border-radius: 10px; padding: 28px; display: grid; gap: 14px; justify-items: start; }
-  .contact p { color: var(--fg-2); }
-  @media (max-width: 860px) { .services { grid-template-columns: 1fr; gap: 32px; } }
-
-  /* Apps */
-  .app { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 22px 24px; }
-  .app img { width: 64px; height: 64px; border-radius: 16px; }
-  .app .txt { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
-  .app .txt p { color: var(--fg-2); font-size: .95rem; }
-  .app .links { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; font-weight: 500; font-size: .93rem; }
-
-  footer { padding: 28px 0 44px; color: var(--muted); font-size: .86rem; }
-  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
-  footer a { color: var(--fg-2); display: inline-block; padding: 8px 0; }
-  .foot-brand { display: inline-flex; align-items: center; gap: 10px; }
-  .foot-links { display: inline-flex; gap: 22px; flex-wrap: wrap; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    .hero-inner > * { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
-    .hero-inner > :nth-child(2) { animation-delay: .08s; } .hero-inner > :nth-child(3) { animation-delay: .16s; }
-    .hero-inner > :nth-child(4) { animation-delay: .24s; } .hero-inner > :nth-child(5) { animation-delay: .32s; }
-    html.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
-    html.js .reveal.in { opacity: 1; transform: none; }
-    .case { transition: border-color .25s ease, transform .25s ease; }
-    .case:hover { border-color: #3A4868; transform: translateY(-3px); }
-  }
+/* Design B, Case browser: the validation cases are an instrument. A list on the left selects a case; the right pane shows its image or video, the comparison and the full validation figure. */
+:root{color-scheme:dark;--bg:#0B101D;--panel:#0E1221;--raised:#151C30;--line:#242D45;--fg:#E6ECF6;--fg2:#AEB9CC;--muted:#7C889E;--accent:#F0A24B;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}:focus-visible{outline:2px solid var(--accent);outline-offset:3px}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--sans)}a{color:var(--accent)}img,video{max-width:100%;display:block}
+.wrap{width:min(1240px,100% - 32px);margin-inline:auto}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:600;color:var(--fg);text-decoration:none}header nav{display:flex;gap:20px;font-size:14px}header nav a{color:var(--fg2);text-decoration:none}
+.intro{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end;padding:44px 0 30px}
+h1{font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.12;margin:0;letter-spacing:-.015em;text-wrap:balance}.intro p{margin:0;color:var(--fg2)}
+.browser{display:grid;grid-template-columns:320px minmax(0,1fr);border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}
+.list{display:grid;align-content:start;border-right:1px solid var(--line)}
+.list button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:12px 16px;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--fg2);width:100%}
+.list button em{font:normal 12px var(--mono);color:var(--muted);white-space:nowrap}
+.list button:hover{background:var(--raised);color:var(--fg)}.list button[aria-selected=true]{background:var(--raised);color:var(--fg);box-shadow:inset 3px 0 0 var(--accent)}.list button[aria-selected=true] em{color:var(--accent)}
+.list button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.pane{min-width:0;display:grid;align-content:start}.pane .m{aspect-ratio:16/9;background:#070A14}.pane .m img,.pane .m video{width:100%;height:100%;object-fit:cover}
+.pane .info{padding:22px 24px;display:grid;gap:10px}.pane h2{margin:0;font-size:1.35rem;line-height:1.2}.pane .p{color:var(--fg2);margin:0;max-width:70ch}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;font:13px/1.5 var(--mono);color:var(--fg2);margin:6px 0 0}.kv dt{color:var(--muted)}.kv dd{margin:0}
+.pane .val{border-top:1px solid var(--line);padding:18px 24px 24px}.pane .val h3{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}.pane .val img{background:#fff;border-radius:4px;width:100%}
+.hint{font:12px var(--mono);color:var(--muted);margin:10px 0 0}
+section{padding:54px 0;border-top:1px solid var(--line);margin-top:54px}section h2{margin:0 0 22px;font-size:1.5rem}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}.cols.three{grid-template-columns:repeat(3,1fr)}.cols h3{margin:0 0 4px;font-size:15.5px}.cols p{margin:0;color:var(--fg2);font-size:15px}
+.btn{display:inline-block;margin-top:22px;font-weight:600;font-size:15px;padding:11px 18px;border-radius:6px;background:var(--accent);color:#231403;text-decoration:none}
+.app{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.app img{border-radius:14px}.app .txt{flex:1 1 300px}.app h3{margin:0;font-size:16px}.app p{margin:2px 0 0;font-size:15px;color:var(--fg2)}.app .links{display:flex;gap:18px;font-size:15px}
+footer{padding:26px 0 44px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);margin-top:54px}
+@media(max-width:900px){.intro{grid-template-columns:1fr;gap:16px}.browser{grid-template-columns:1fr}.list{grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}.list button{border-bottom:0;border-right:1px solid var(--line);flex-direction:column;gap:2px;align-items:flex-start}.list button[aria-selected=true]{box-shadow:inset 0 -3px 0 var(--accent)}.cols,.cols.three{grid-template-columns:1fr}header nav a.opt{display:none}.hint{display:none}}
+header nav a,.app .links a,footer a{display:inline-block;padding:8px 0}
+.brand span{white-space:nowrap}
+@media(max-width:400px){header nav{gap:14px}.brand span{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
-<body>
-
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="#top" aria-label="Rivers Research"><img src="assets/mark.svg" alt=""><span>Rivers Research</span></a>
-    <nav aria-label="Sections">
-      <ul>
-        <li><a href="#capabilities">Scope</a></li>
-        <li><a href="#showcase">Cases</a></li>
-        <li class="optional"><a href="#method">Procedure</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="bible/">Apps</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main id="top">
-  <div class="hero">
-    <img class="hero-still" src="assets/sim/hero.webp" alt="" width="1600" height="900">
-    <video id="hero-video" muted loop playsinline preload="none" poster="assets/sim/hero.webp" aria-hidden="true" tabindex="-1"></video>
-    <div class="wrap">
-      <div class="hero-inner">
-        <div class="label">Computational mechanics</div>
-        <h1>Numerical simulation of fluids, shock waves, blast and impact.</h1>
-        <p class="lede">Rivers Research computes how fluids and structures behave under conditions that are difficult or costly to test. Each method is first checked against a published experiment, and the agreement is reported with the result.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#services" data-mail="Simulation enquiry">Send an enquiry</a>
-          <a class="btn btn-ghost" href="#showcase">Validation cases</a>
-        </div>
-        <p class="hero-cap">Background: three-dimensional dam break impacting an obstacle; MARIN experiment, SPHERIC Test 2.</p>
-      </div>
-    </div>
-  </div>
-
-  <section id="capabilities">
-    <div class="wrap">
-      <div class="head">
-        <div class="label">Scope</div>
-        <h2>Problem classes</h2>
-      </div>
-      <div class="caps">
-        <div class="cap"><h3>Turbulence</h3><p>Turbulent flow resolved directly, including the transport and mixing of particles and scalars.</p></div>
-        <div class="cap"><h3>Blast and detonation</h3><p>Blast loading in the open, in enclosed rooms and between buildings, and the structure of detonation fronts.</p></div>
-        <div class="cap"><h3>Shock and multiphase flow</h3><p>Shock waves interacting with gas and liquid interfaces, including bubble collapse near walls.</p></div>
-        <div class="cap"><h3>Free-surface flow, impact and porous media</h3><p>Wave impact on structures, deformation of metals at high rates, and flow through porous materials.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="showcase">
-    <div class="wrap">
-      <div class="head">
-        <div class="label">Cases</div>
-        <h2>Validation cases</h2>
-        <p>Eleven cases, each compared with a published experiment or reference solution. The figure linked from each case gives the full comparison. All were computed on a 192-core workstation.</p>
-      </div>
-
-      <div class="cases">
-        <article class="case wide">
-          <div class="media"><video controls playsinline preload="none" poster="assets/sim/dam-break.webp" src="assets/sim/dam-break.mp4" aria-label="Video: water column collapsing in a tank and striking a box"></video></div>
-          <div class="body">
-            <h3>Dam break against an obstacle</h3>
-            <p class="plain">A column of water is released in a tank and strikes a box. The computed forces on the box are compared with the MARIN laboratory measurements.</p>
-            <p class="result">Mean loads on the box within −2.7 to +6.4 % of the measured MARIN data · impact peak +10 %</p>
-            <div class="links"><a href="assets/sim/dam-break-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="media"><img src="assets/sim/turbulence.webp" width="1280" height="598" loading="lazy" alt="Vortex filaments in a cube of isotropic turbulence"></div>
-          <div class="body">
-            <h3>Isotropic turbulence</h3>
-            <p class="plain">The fine vortex structure of a turbulent flow, resolved directly on a 512³ grid without a turbulence model.</p>
-            <p class="result">512³ DNS, Re_λ ≈ 240 · Kolmogorov constant 1.72 · derivative skewness −0.55 · k_max·η = 1.17</p>
-            <div class="links"><a href="assets/sim/turbulence-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="media"><img src="assets/sim/tracers.webp" width="1280" height="598" loading="lazy" alt="Tracer particle clouds inside a cube coloured by a mixing scalar"></div>
-          <div class="body">
-            <h3>Particle dispersion and mixing in turbulence</h3>
-            <p class="plain">Tracer particles are followed through a turbulent flow to measure how quickly they spread, and the result is compared with Taylor's classical theory.</p>
-            <p class="result">Tracer dispersion matches Taylor's ballistic limit to 0.2 % · Lagrangian/Eulerian variance 0.991</p>
-            <div class="links"><a href="assets/sim/tracers-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="media"><img src="assets/sim/detonation.webp" width="1280" height="598" loading="lazy" alt="Detonation front with its cellular soot-foil pattern below"></div>
-          <div class="body">
-            <h3>Cellular detonation in hydrogen, oxygen and argon</h3>
-            <p class="plain">A detonation front develops the diamond-shaped cell pattern that soot foils record in laboratory experiments.</p>
-            <p class="result">Front speed +0.11 % from Chapman–Jouguet · cell width 20 mm vs 23.7–27.3 mm measured (Strehlow 1967)</p>
-            <div class="links"><a href="assets/sim/detonation-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="media"><img src="assets/sim/blast-room.webp" width="1280" height="598" loading="lazy" alt="Shock fronts reflecting inside a closed room"></div>
-          <div class="body">
-            <h3>Explosion in a closed room</h3>
-            <p class="plain">Shock waves from a charge reflect between the walls of a room. The loads on the walls and the final gas pressure are computed.</p>
-            <p class="result">Incident shock within ±6 % of Kingery–Bulmash at Z ≥ 1 · mass conserved exactly, energy to 3×10⁻⁴</p>
-            <div class="links"><a href="assets/sim/blast-room-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="media"><img src="assets/sim/surface-burst.webp" width="1280" height="598" loading="lazy" alt="Hemispherical blast wave expanding from a surface charge"></div>
-          <div class="body">
-            <h3>Surface burst of a 2 kg charge</h3>
-            <p class="plain">The blast wave from a charge on the ground, compared with the standard Kingery–Bulmash blast curves.</p>
-            <p class="result">Peak overpressure −5 to −8 % from Kingery–Bulmash beyond Z = 1.5 · arrival time within 1–11 %</p>
-            <div class="links"><a href="assets/sim/surface-burst-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="media"><img src="assets/sim/shock-bubble.webp" width="1280" height="598" loading="lazy" alt="Helium cylinder rolled up into two vortices after a shock has passed"></div>
-          <div class="body">
-            <h3>Shock wave passing a helium cylinder</h3>
-            <p class="plain">A shock wave deforms a column of helium into a pair of vortices, as in the Haas &amp; Sturtevant experiment.</p>
-            <p class="result">All 6 wave and interface speeds within the ±11 % uncertainty of Haas &amp; Sturtevant (1987)</p>
-            <div class="links"><a href="assets/sim/shock-bubble-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="media"><img src="assets/sim/bubble-collapse.webp" width="1280" height="598" loading="lazy" alt="Air bubble collapsing next to a rigid wall under a shock"></div>
-          <div class="body">
-            <h3>Collapse of an air bubble near a wall</h3>
-            <p class="plain">A shock wave in water collapses an air bubble beside a rigid wall, a mechanism of cavitation damage.</p>
-            <p class="result">Collapse time within 0.5 % of Rayleigh, grid-converged · peak wall pressure not converged (stated)</p>
-            <div class="links"><a href="assets/sim/bubble-collapse-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="media"><video controls playsinline preload="none" poster="assets/sim/taylor.webp" src="assets/sim/taylor.mp4" aria-label="Video: copper rod mushrooming on a steel anvil"></video></div>
-          <div class="body">
-            <h3>Taylor impact of a copper rod</h3>
-            <p class="plain">A copper rod strikes a rigid anvil at 190 m/s and deforms plastically. The final shape is compared with published results.</p>
-            <p class="result">Final length within 0.4–0.9 % of Johnson &amp; Cook's computation · energy balance closes to 0.07 %</p>
-            <div class="links"><a href="assets/sim/taylor-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="media"><img src="assets/sim/porous.webp" width="1280" height="598" loading="lazy" alt="Flow speed between randomly packed disks in a porous medium"></div>
-          <div class="body">
-            <h3>Flow through a porous medium</h3>
-            <p class="plain">Fluid moves between randomly packed grains, and the permeability of the material is computed from the resolved flow.</p>
-            <p class="result">Square-array permeability within 0.004–0.15 % of Barnett et al. (2016) · second-order convergence</p>
-            <div class="links"><a href="assets/sim/porous-validation.webp">Validation figure</a></div>
-          </div>
-        </article>
-
-        <article class="case wide">
-          <div class="media"><video controls playsinline preload="none" poster="assets/sim/urban-blast.webp" src="assets/sim/urban-blast.mp4" aria-label="Video: blast wave spreading through a city street intersection"></video></div>
-          <div class="body">
-            <h3>Blast in a city street intersection</h3>
-            <p class="plain">A 100 kg charge at street level. The loads on the building facades are computed, with the shielding and channelling caused by the streets.</p>
-            <p class="result">Free field → Kingery–Bulmash with mesh refinement (within 4 % at 5 cm) · facade impulse within 5–7 % of DDESB TP-20</p>
-            <div class="links"><a href="assets/sim/urban-blast-validation.webp">Validation figure</a><a href="assets/sim/urban-design-validation.webp">Protective-design quantities</a></div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="method">
-    <div class="wrap">
-      <div class="head">
-        <div class="label">Procedure</div>
-        <h2>Validation and reporting procedure</h2>
-      </div>
-      <div class="method">
-        <div class="step"><h3>Reference case</h3><p>A method is first applied to a problem with a known answer from the literature.</p></div>
-        <div class="step"><h3>Grid convergence</h3><p>Each case is computed at more than one resolution, and quantities that have not converged are identified.</p></div>
-        <div class="step"><h3>Reported deviation</h3><p>Every result is stated with its difference from the reference, including where the agreement is weaker.</p></div>
-      </div>
-      <div class="codes" aria-label="Solvers used">
-        <span class="lead">Solvers used</span>
-        <span>OpenFOAM</span><span>blastFoam</span><span>MFC</span><span>OpenRadioss</span><span>HIT36 DNS</span><span>RECUR</span>
-      </div>
-    </div>
-  </section>
-
-  <section id="services">
-    <div class="wrap services">
-      <div>
-        <div class="head">
-          <div class="label">Services</div>
-          <h2>Contract simulation and analysis</h2>
-          <p>Studies are undertaken for fluid, shock, blast and impact problems. Results are delivered with the corresponding validation case.</p>
-        </div>
-        <ul>
-          <li><b>Simulation studies</b><span>Problem setup, computation and analysis for a specified engineering question.</span></li>
-          <li><b>Structural loading</b><span>Pressure, impulse and force histories on walls, facades and obstacles under blast, wave impact or flow.</span></li>
-          <li><b>Model validation</b><span>Reproduction of a published experiment with the client's solver and settings. Agreement and disagreement are both reported.</span></li>
-          <li><b>Figures and animation</b><span>Publication figures and rendered animation produced from the computed fields.</span></li>
-        </ul>
-      </div>
-      <div class="contact">
-        <h3>Enquiries</h3>
-        <p>State the question to be answered and the data available. Replies are sent by email.</p>
-        <a class="btn btn-primary" href="#services" data-mail="Simulation enquiry">Send an enquiry</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="apps">
-    <div class="wrap">
-      <div class="head">
-        <div class="label">Apps</div>
-        <h2>Other products</h2>
-      </div>
-      <div class="app">
-        <img src="assets/bible-ml.png" alt="വേദപുസ്തകം app icon: a lamp flame above an open book">
-        <div class="txt">
-          <h3><span lang="ml">വേദപുസ്തകം</span>, a Malayalam–English study Bible</h3>
-          <p>Three Malayalam and four English translations with the Hebrew and Greek texts. Operates offline; no account and no advertising.</p>
-        </div>
-        <div class="links">
-          <a class="btn btn-ghost" href="bible/">App page</a>
-          <a href="bible/privacy">Privacy policy</a>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <span class="foot-brand"><img src="assets/mark.svg" alt="" width="22" height="22"> © 2026 Rivers Research</span>
-    <span class="foot-links"><a href="#showcase">Cases</a><a href="bible/">Bible app</a><a href="bible/privacy">Privacy policy</a></span>
-  </div>
-</footer>
-
-<script>
-  // Contact buttons open a note in the visitor's mail app. The address is assembled here, so it never appears as text on the page.
-  (function () {
-    var to = "dond" + "@" + "riversresearch.org";
-    document.querySelectorAll("a[data-mail]").forEach(function (a) {
-      a.href = "mailto:" + to + "?subject=" + encodeURIComponent(a.dataset.mail);
-    });
-  })();
-
-  // Hero video starts only when motion is welcome, and after the page has loaded.
-  (function () {
-    var v = document.getElementById("hero-video");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { v.remove(); return; }
-    function start() { v.src = "assets/sim/dam-break.mp4"; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-    if (document.readyState === "complete") start(); else window.addEventListener("load", start);
-  })();
-
-  // Sections fade in as they scroll into view. Without this script everything is simply visible.
-  (function () {
-    if (!("IntersectionObserver" in window)) return;
-    document.documentElement.classList.add("js");
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0.06, rootMargin: "0px 0px -5% 0px" });
-    document.querySelectorAll(".head, .caps, .case, .step, .codes, .services ul, .contact, .app").forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
-  })();
-</script>
-</body>
-</html>
+<body><div class="wrap">
+<header><a class="brand" href="#" aria-label="Rivers Research"><img src="assets/mark.svg" width="28" height="28" alt=""><span>Rivers Research</span></a><nav><a href="#cases">Cases</a><a class="opt" href="#scope">Scope</a><a class="opt" href="#procedure">Procedure</a><a href="#services">Services</a><a href="bible/">Apps</a></nav></header>
+<div class="intro"><h1>Numerical simulation of fluids, shock waves, blast and impact.</h1><p>Rivers Research computes how fluids and structures behave under conditions that are difficult or costly to test. Each method is first checked against a published experiment, and the agreement is reported with the result.</p></div>
+<div class="browser" id="cases"><div class="list" role="tablist" aria-label="Validation cases" aria-orientation="vertical"><button type="button" role="tab" id="t0" aria-controls="panel" aria-selected="true" data-i="0"><span>Dam break against an obstacle</span><em>2.7–6.4 %</em></button><button type="button" role="tab" id="t1" aria-controls="panel" aria-selected="false" data-i="1"><span>Isotropic turbulence</span><em></em></button><button type="button" role="tab" id="t2" aria-controls="panel" aria-selected="false" data-i="2"><span>Particle dispersion and mixing in turbulence</span><em>0.2 %</em></button><button type="button" role="tab" id="t3" aria-controls="panel" aria-selected="false" data-i="3"><span>Cellular detonation in hydrogen, oxygen and argon</span><em>0.11 %</em></button><button type="button" role="tab" id="t4" aria-controls="panel" aria-selected="false" data-i="4"><span>Explosion in a closed room</span><em>≤ 6 %</em></button><button type="button" role="tab" id="t5" aria-controls="panel" aria-selected="false" data-i="5"><span>Surface burst of a 2 kg charge</span><em>5–8 %</em></button><button type="button" role="tab" id="t6" aria-controls="panel" aria-selected="false" data-i="6"><span>Shock wave passing a helium cylinder</span><em>≤ 11 %</em></button><button type="button" role="tab" id="t7" aria-controls="panel" aria-selected="false" data-i="7"><span>Collapse of an air bubble near a wall</span><em>≤ 0.5 %</em></button><button type="button" role="tab" id="t8" aria-controls="panel" aria-selected="false" data-i="8"><span>Taylor impact of a copper rod</span><em>0.4–0.9 %</em></button><button type="button" role="tab" id="t9" aria-controls="panel" aria-selected="false" data-i="9"><span>Flow through a porous medium</span><em>0.004–0.15 %</em></button><button type="button" role="tab" id="t10" aria-controls="panel" aria-selected="false" data-i="10"><span>Blast in a city street intersection</span><em>4–7 %</em></button></div>
+<div class="pane" id="panel" role="tabpanel" aria-labelledby="t0"><div class="m" id="m"><video controls playsinline preload="none" poster="assets/sim/dam-break.webp" src="assets/sim/dam-break.mp4" aria-label="Video: Water column collapsing in a tank and striking a box"></video></div><div class="info"><h2 id="pt">Dam break against an obstacle</h2><p class="p" id="pp">A column of water is released in a tank and strikes a box. The computed forces on the box are compared with the MARIN laboratory measurements.</p><dl class="kv"><dt>Reference</dt><dd id="pref">MARIN experiment (SPHERIC Test 2)</dd><dt>Result</dt><dd id="pr">Mean loads on the box within −2.7 to +6.4 % of the measured MARIN data · impact peak +10 %</dd></dl></div><div class="val"><h3>Validation figure</h3><img id="pv" src="assets/sim/dam-break-validation.webp" alt="Validation figure for the selected case" loading="lazy"></div></div></div>
+<p class="hint">Select a case from the list, or use the arrow keys.</p>
+<section id="scope"><h2>Problem classes</h2><div class="cols"><div><h3>Turbulence</h3><p>Turbulent flow resolved directly, including the transport and mixing of particles and scalars.</p></div><div><h3>Blast and detonation</h3><p>Blast loading in the open, in enclosed rooms and between buildings, and the structure of detonation fronts.</p></div><div><h3>Shock and multiphase flow</h3><p>Shock waves interacting with gas and liquid interfaces, including bubble collapse near walls.</p></div><div><h3>Free-surface flow, impact and porous media</h3><p>Wave impact on structures, deformation of metals at high rates, and flow through porous materials.</p></div></div></section>
+<section id="procedure" style="margin-top:0"><h2>Validation and reporting procedure</h2><div class="cols three"><div><h3>Reference case</h3><p>A method is first applied to a problem with a known answer from the literature.</p></div><div><h3>Grid convergence</h3><p>Each case is computed at more than one resolution, and quantities that have not converged are identified.</p></div><div><h3>Reported deviation</h3><p>Every result is stated with its difference from the reference, including where the agreement is weaker.</p></div></div><p class="hint" style="display:block;margin-top:20px">Solvers used: OpenFOAM, blastFoam, MFC, OpenRadioss, HIT36 DNS, RECUR</p></section>
+<section id="services" style="margin-top:0"><h2>Contract simulation and analysis</h2><div class="cols"><div><h3>Simulation studies</h3><p>Problem setup, computation and analysis for a specified engineering question.</p></div><div><h3>Structural loading</h3><p>Pressure, impulse and force histories on walls, facades and obstacles under blast, wave impact or flow.</p></div><div><h3>Model validation</h3><p>Reproduction of a published experiment with the client's solver and settings. Agreement and disagreement are both reported.</p></div><div><h3>Figures and animation</h3><p>Publication figures and rendered animation produced from the computed fields.</p></div></div><a class="btn" href="#services" data-mail="Simulation enquiry">Send an enquiry</a></section>
+<section style="margin-top:0"><h2>Other products</h2><div class="app"><img src="assets/bible-ml.png" alt="വേദപുസ്തകം app icon" width="64" height="64"><div class="txt"><h3><span lang="ml">വേദപുസ്തകം</span>, a Malayalam–English study Bible</h3><p>Three Malayalam and four English translations with the Hebrew and Greek texts. Operates offline; no account and no advertising.</p></div><div class="links"><a href="bible/">App page</a><a href="bible/privacy">Privacy policy</a></div></div></section>
+<footer><span>© 2026 Rivers Research</span> · <a href="bible/">Bible app</a> · <a href="bible/privacy">Privacy policy</a></footer></div>
+<script>(function(){var to="dond"+"@"+"riversresearch.org";document.querySelectorAll("a[data-mail]").forEach(function(a){a.href="mailto:"+to+"?subject="+encodeURIComponent(a.dataset.mail)});})();</script>
+<script>(function(){var D=[{"k": "dam-break", "t": "Dam break against an obstacle", "p": "A column of water is released in a tank and strikes a box. The computed forces on the box are compared with the MARIN laboratory measurements.", "r": "Mean loads on the box within −2.7 to +6.4 % of the measured MARIN data · impact peak +10 %", "ref": "MARIN experiment (SPHERIC Test 2)", "v": true, "alt": "Water column collapsing in a tank and striking a box"}, {"k": "turbulence", "t": "Isotropic turbulence", "p": "The fine vortex structure of a turbulent flow, resolved directly on a 512³ grid without a turbulence model.", "r": "512³ DNS, Re_λ ≈ 240 · Kolmogorov constant 1.72 · derivative skewness −0.55 · k_max·η = 1.17", "ref": "Published turbulence statistics", "v": false, "alt": "Vortex filaments in a cube of isotropic turbulence"}, {"k": "tracers", "t": "Particle dispersion and mixing in turbulence", "p": "Tracer particles are followed through a turbulent flow to measure how quickly they spread, and the result is compared with Taylor's classical theory.", "r": "Tracer dispersion matches Taylor's ballistic limit to 0.2 % · Lagrangian/Eulerian variance 0.991", "ref": "Taylor (1921)", "v": false, "alt": "Tracer particle clouds inside a cube coloured by a mixing scalar"}, {"k": "detonation", "t": "Cellular detonation in hydrogen, oxygen and argon", "p": "A detonation front develops the diamond-shaped cell pattern that soot foils record in laboratory experiments.", "r": "Front speed +0.11 % from Chapman–Jouguet · cell width 20 mm vs 23.7–27.3 mm measured (Strehlow 1967)", "ref": "Chapman–Jouguet speed; Strehlow (1967)", "v": false, "alt": "Detonation front with its cellular soot-foil pattern below"}, {"k": "blast-room", "t": "Explosion in a closed room", "p": "Shock waves from a charge reflect between the walls of a room. The loads on the walls and the final gas pressure are computed.", "r": "Incident shock within ±6 % of Kingery–Bulmash at Z ≥ 1 · mass conserved exactly, energy to 3×10⁻⁴", "ref": "Kingery–Bulmash", "v": false, "alt": "Shock fronts reflecting inside a closed room"}, {"k": "surface-burst", "t": "Surface burst of a 2 kg charge", "p": "The blast wave from a charge on the ground, compared with the standard Kingery–Bulmash blast curves.", "r": "Peak overpressure −5 to −8 % from Kingery–Bulmash beyond Z = 1.5 · arrival time within 1–11 %", "ref": "Kingery–Bulmash", "v": false, "alt": "Hemispherical blast wave expanding from a surface charge"}, {"k": "shock-bubble", "t": "Shock wave passing a helium cylinder", "p": "A shock wave deforms a column of helium into a pair of vortices, as in the Haas & Sturtevant experiment.", "r": "All 6 wave and interface speeds within the ±11 % uncertainty of Haas & Sturtevant (1987)", "ref": "Haas & Sturtevant (1987)", "v": false, "alt": "Helium cylinder rolled up into two vortices after a shock has passed"}, {"k": "bubble-collapse", "t": "Collapse of an air bubble near a wall", "p": "A shock wave in water collapses an air bubble beside a rigid wall, a mechanism of cavitation damage.", "r": "Collapse time within 0.5 % of Rayleigh, grid-converged · peak wall pressure not converged (stated)", "ref": "Rayleigh collapse time", "v": false, "alt": "Air bubble collapsing next to a rigid wall"}, {"k": "taylor", "t": "Taylor impact of a copper rod", "p": "A copper rod strikes a rigid anvil at 190 m/s and deforms plastically. The final shape is compared with published results.", "r": "Final length within 0.4–0.9 % of Johnson & Cook's computation · energy balance closes to 0.07 %", "ref": "Johnson & Cook", "v": true, "alt": "Copper rod mushroomed on a steel anvil"}, {"k": "porous", "t": "Flow through a porous medium", "p": "Fluid moves between randomly packed grains, and the permeability of the material is computed from the resolved flow.", "r": "Square-array permeability within 0.004–0.15 % of Barnett et al. (2016) · second-order convergence", "ref": "Barnett et al. (2016)", "v": false, "alt": "Flow speed between randomly packed disks"}, {"k": "urban-blast", "t": "Blast in a city street intersection", "p": "A 100 kg charge at street level. The loads on the building facades are computed, with the shielding and channelling caused by the streets.", "r": "Free field → Kingery–Bulmash with mesh refinement (within 4 % at 5 cm) · facade impulse within 5–7 % of DDESB TP-20", "ref": "Kingery–Bulmash; DDESB TP-20", "v": true, "alt": "Blast wave spreading through a city street intersection"}],tabs=[].slice.call(document.querySelectorAll(".list button")),$=function(i){return document.getElementById(i)};
+function show(i,focus){var c=D[i];tabs.forEach(function(b,j){b.setAttribute("aria-selected",j===i);b.tabIndex=j===i?0:-1});
+$("m").innerHTML=c.v?'<video controls playsinline preload="none" poster="assets/sim/'+c.k+'.webp" src="assets/sim/'+c.k+'.mp4"></video>':'<img src="assets/sim/'+c.k+'.webp" alt="">';
+$("m").firstChild.setAttribute(c.v?"aria-label":"alt",c.alt);$("pt").textContent=c.t;$("pp").textContent=c.p;$("pref").textContent=c.ref;$("pr").textContent=c.r;$("pv").src="assets/sim/"+c.k+"-validation.webp";$("panel").setAttribute("aria-labelledby","t"+i);if(focus){tabs[i].focus();tabs[i].scrollIntoView({block:"nearest",inline:"nearest"})}}
+tabs.forEach(function(b,i){b.addEventListener("click",function(){show(i)});b.addEventListener("keydown",function(ev){var d=(ev.key==="ArrowDown"||ev.key==="ArrowRight")?1:(ev.key==="ArrowUp"||ev.key==="ArrowLeft")?-1:0;if(d){ev.preventDefault();show((i+d+tabs.length)%tabs.length,true)}})});show(0);})();</script>
+</body></html>
