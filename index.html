@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'none'; script-src 'unsafe-inline'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Rivers Research</title>
-<meta name="description" content="Rivers Research runs validated simulations of turbulence, blast and detonation, shocks and multiphase flow, free-surface flow, impact and porous media.">
+<meta name="description" content="Rivers Research performs numerical simulation of turbulence, blast and detonation, shock and multiphase flow, free-surface flow, impact and porous media, with documented validation against published references.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Rivers Research">
-<meta property="og:description" content="Validated simulation of fluids, shocks, blast and impact.">
+<meta property="og:description" content="Numerical simulation of fluid, shock, blast and impact problems, with documented validation.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://riversresearch.org/">
 <meta property="og:image" content="https://riversresearch.org/assets/sim/share.jpg">
@@ -164,9 +164,9 @@
     <a class="brand" href="#top" aria-label="Rivers Research"><img src="assets/mark.svg" alt=""><span>Rivers Research</span></a>
     <nav aria-label="Sections">
       <ul>
-        <li><a href="#capabilities">Capabilities</a></li>
-        <li><a href="#showcase">Showcase</a></li>
-        <li class="optional"><a href="#method">Method</a></li>
+        <li><a href="#capabilities">Scope</a></li>
+        <li><a href="#showcase">Cases</a></li>
+        <li class="optional"><a href="#method">Procedure</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="bible/">Apps</a></li>
       </ul>
@@ -180,14 +180,14 @@
     <video id="hero-video" muted loop playsinline preload="none" poster="assets/sim/hero.webp" aria-hidden="true" tabindex="-1"></video>
     <div class="wrap">
       <div class="hero-inner">
-        <div class="label">Simulation and analysis</div>
-        <h1>Validated simulation of fluids, shocks, blast and impact.</h1>
-        <p class="lede">Rivers Research runs high-resolution simulations and checks each one against a published experiment or reference solution before reporting a result.</p>
+        <div class="label">Computational mechanics</div>
+        <h1>Numerical simulation of fluid, shock, blast and impact problems, with documented validation.</h1>
+        <p class="lede">Rivers Research performs direct and high-resolution numerical simulation. Each configuration is first computed for a published experiment or reference solution, and the deviation is reported with the result.</p>
         <div class="actions">
-          <a class="btn btn-primary" href="#services" data-mail="Simulation project">Discuss a project</a>
-          <a class="btn btn-ghost" href="#showcase">See the showcase</a>
+          <a class="btn btn-primary" href="#services" data-mail="Simulation enquiry">Send an enquiry</a>
+          <a class="btn btn-ghost" href="#showcase">Validation cases</a>
         </div>
-        <p class="hero-cap">Background: 3D dam break onto an obstacle, the MARIN experiment (SPHERIC Test 2)</p>
+        <p class="hero-cap">Background: three-dimensional dam break impacting an obstacle; MARIN experiment, SPHERIC Test 2.</p>
       </div>
     </div>
   </div>
@@ -195,14 +195,14 @@
   <section id="capabilities">
     <div class="wrap">
       <div class="head">
-        <div class="label">Capabilities</div>
-        <h2>What we simulate</h2>
+        <div class="label">Scope</div>
+        <h2>Problem classes</h2>
       </div>
       <div class="caps">
-        <div class="cap"><h3>Turbulence</h3><p>Direct numerical simulation of isotropic turbulence, Lagrangian tracers and passive-scalar mixing.</p></div>
-        <div class="cap"><h3>Blast and detonation</h3><p>Blast waves in the open, in rooms and between buildings, and cellular detonation with detailed chemistry.</p></div>
-        <div class="cap"><h3>Shocks and multiphase</h3><p>Shock–interface interaction and shock-driven bubble collapse near walls.</p></div>
-        <div class="cap"><h3>Free surface, impact and porous media</h3><p>Dam-break loads on structures, high-rate metal impact, and pore-scale flow and permeability.</p></div>
+        <div class="cap"><h3>Turbulence</h3><p>Direct numerical simulation of forced isotropic turbulence; Lagrangian tracer statistics; passive-scalar mixing.</p></div>
+        <div class="cap"><h3>Blast and detonation</h3><p>Free-field, confined and urban blast loading; cellular detonation with detailed chemical kinetics.</p></div>
+        <div class="cap"><h3>Shock and multiphase flow</h3><p>Shock–interface interaction; shock-induced bubble collapse near rigid boundaries.</p></div>
+        <div class="cap"><h3>Free-surface flow, impact and porous media</h3><p>Wave-impact loads on structures; high-strain-rate plastic deformation; pore-scale flow and permeability.</p></div>
       </div>
     </div>
   </section>
@@ -210,9 +210,9 @@
   <section id="showcase">
     <div class="wrap">
       <div class="head">
-        <div class="label">Showcase</div>
-        <h2>Eleven cases and how each one was checked</h2>
-        <p>Every image comes from a run on our 192-core AMD EPYC workstation. Under each title is the main comparison with the reference, and the validation figure has the rest.</p>
+        <div class="label">Cases</div>
+        <h2>Validation cases</h2>
+        <p>Eleven cases computed on a 192-core AMD EPYC workstation. Each entry states the principal comparison with the reference; the linked figure gives the complete comparison.</p>
       </div>
 
       <div class="cases">
@@ -321,16 +321,16 @@
   <section id="method">
     <div class="wrap">
       <div class="head">
-        <div class="label">Method</div>
-        <h2>How a result gets reported</h2>
+        <div class="label">Procedure</div>
+        <h2>Validation and reporting procedure</h2>
       </div>
       <div class="method">
-        <div class="step"><h3>Reproduce a known case first</h3><p>Before a new problem, the same setup is run on an experiment or reference solution from the literature, such as MARIN, Haas &amp; Sturtevant or Kingery–Bulmash.</p></div>
-        <div class="step"><h3>Show the grid study</h3><p>Results are run at more than one resolution, and the report says which quantities have converged and which have not.</p></div>
-        <div class="step"><h3>State the difference</h3><p>Each headline number is given with its deviation from the reference, including the cases where the agreement is weaker.</p></div>
+        <div class="step"><h3>Reference case</h3><p>The numerical setup is first applied to an experiment or reference solution from the literature, for example the MARIN dam break, Haas &amp; Sturtevant (1987) or the Kingery–Bulmash relations.</p></div>
+        <div class="step"><h3>Grid convergence</h3><p>Each case is computed at two or more resolutions. Quantities that have not converged are identified as such.</p></div>
+        <div class="step"><h3>Reported deviation</h3><p>Each quantity is reported with its deviation from the reference, including cases of weaker agreement.</p></div>
       </div>
-      <div class="codes" aria-label="Solvers used in the showcase">
-        <span class="lead">Solvers used in the showcase</span>
+      <div class="codes" aria-label="Solvers used">
+        <span class="lead">Solvers used</span>
         <span>OpenFOAM</span><span>blastFoam</span><span>MFC</span><span>OpenRadioss</span><span>HIT36 DNS</span><span>RECUR</span>
       </div>
     </div>
@@ -341,20 +341,20 @@
       <div>
         <div class="head">
           <div class="label">Services</div>
-          <h2>Work we take on</h2>
-          <p>Fluid, shock, blast and impact problems. Every result is reported with the validation case it rests on.</p>
+          <h2>Contract simulation and analysis</h2>
+          <p>Studies are undertaken for fluid, shock, blast and impact problems. Results are delivered with the corresponding validation case.</p>
         </div>
         <ul>
-          <li><b>Simulation studies</b><span>Setup, runs and analysis for a defined engineering question.</span></li>
-          <li><b>Loads on structures</b><span>Pressure, impulse and force histories on walls, facades and obstacles from blast, wave impact or flow.</span></li>
-          <li><b>Checks against experiment</b><span>Reproducing a published test with your solver and settings, and reporting where it agrees and where it does not.</span></li>
-          <li><b>Figures and animation</b><span>Publication figures and rendered video made from the computed fields.</span></li>
+          <li><b>Simulation studies</b><span>Problem setup, computation and analysis for a specified engineering question.</span></li>
+          <li><b>Structural loading</b><span>Pressure, impulse and force histories on walls, facades and obstacles under blast, wave impact or flow.</span></li>
+          <li><b>Model validation</b><span>Reproduction of a published experiment with the client's solver and settings. Agreement and disagreement are both reported.</span></li>
+          <li><b>Figures and animation</b><span>Publication figures and rendered animation produced from the computed fields.</span></li>
         </ul>
       </div>
       <div class="contact">
-        <h3>Discuss a project</h3>
-        <p>Tell us what you need to know and what data you have. We reply by email.</p>
-        <a class="btn btn-primary" href="#services" data-mail="Simulation project">Email us</a>
+        <h3>Enquiries</h3>
+        <p>State the quantity required and the data available. Replies are sent by email.</p>
+        <a class="btn btn-primary" href="#services" data-mail="Simulation enquiry">Send an enquiry</a>
       </div>
     </div>
   </section>
@@ -363,16 +363,16 @@
     <div class="wrap">
       <div class="head">
         <div class="label">Apps</div>
-        <h2>Also from Rivers Research</h2>
+        <h2>Other products</h2>
       </div>
       <div class="app">
         <img src="assets/bible-ml.png" alt="വേദപുസ്തകം app icon: a lamp flame above an open book">
         <div class="txt">
           <h3><span lang="ml">വേദപുസ്തകം</span>, a Malayalam–English study Bible</h3>
-          <p>Three Malayalam and four English translations with the Hebrew and Greek texts. Works offline, with no account and no ads.</p>
+          <p>Three Malayalam and four English translations with the Hebrew and Greek texts. Operates offline; no account and no advertising.</p>
         </div>
         <div class="links">
-          <a class="btn btn-ghost" href="bible/">See the app</a>
+          <a class="btn btn-ghost" href="bible/">App page</a>
           <a href="bible/privacy">Privacy policy</a>
         </div>
       </div>
@@ -383,7 +383,7 @@
 <footer>
   <div class="wrap">
     <span class="foot-brand"><img src="assets/mark.svg" alt="" width="22" height="22"> © 2026 Rivers Research</span>
-    <span class="foot-links"><a href="#showcase">Showcase</a><a href="bible/">Bible app</a><a href="bible/privacy">Privacy policy</a></span>
+    <span class="foot-links"><a href="#showcase">Cases</a><a href="bible/">Bible app</a><a href="bible/privacy">Privacy policy</a></span>
   </div>
 </footer>
 
